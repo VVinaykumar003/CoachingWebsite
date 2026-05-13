@@ -3,8 +3,11 @@
   "buildCommand": "next build",
   "installCommand": "npm install",
   "startCommand": "next start",
-  
-  "rewrites": [
+    "routes": [
     { "source": "/(.*)", "destination": "/" }
+  ],
+  "redirect": [
+    { "source": "/home", "destination": "/" }
   ]
+  
 }
