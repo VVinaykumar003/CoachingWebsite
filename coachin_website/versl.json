@@ -9,5 +9,5 @@
   "redirect": [
     { "source": "/home", "destination": "/" }
   ]
-  
+
 }
