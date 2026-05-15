@@ -64,7 +64,11 @@ const ManageCourses = () => {
         method: 'POST',
         body: formData,
       });
-      if (!res.ok) throw new Error("Failed to add course");
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ message: "No error message from server." }));
+        console.error("Server error details:", errorData);
+        throw new Error(`Failed to add course. Server responded with status ${res.status}.`);
+      }
       e.currentTarget.reset();
       setIsOtherCategoryAdd(false);
       closeModal('add_course_modal');
@@ -89,7 +93,11 @@ const ManageCourses = () => {
     setIsSubmitting(true);
     try {
       const res = await fetch(`/api/course/delete/${courseToDelete}`, { method: 'DELETE' });
-      if (!res.ok) throw new Error("Failed to delete course");
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ message: "No error message from server." }));
+        console.error("Server error details:", errorData);
+        throw new Error(`Failed to delete course. Server responded with status ${res.status}.`);
+      }
       fetchCourses();
       showSuccess("Course deleted successfully!");
     } catch (err) {
@@ -117,20 +125,28 @@ const ManageCourses = () => {
     const formData = new FormData(e.currentTarget);
     
     // Convert FormData to a standard object so it can be viewed in the console
-    console.log("Form Data being sent:", Object.fromEntries(formData.entries()));
+    // console.log("Form Data being sent:", Object.fromEntries(formData.entries()));
     
     // If no new thumbnail was selected, remove it to avoid overwriting with an empty file
     const thumbnailFile = formData.get('thumbnail');
     if (thumbnailFile instanceof File && thumbnailFile.size === 0) {
       formData.delete('thumbnail');
     }
-
+    console.log("FormData :", Object.fromEntries(formData.entries()));
     try {
       const res = await fetch(`/api/course/update/${editingCourse._id || editingCourse.id}`, {
-        method: 'PUT',
+        method:'PUT',
         body: formData,
       });
-      if (!res.ok) throw new Error("Failed to update course");
+
+      console.log(res)
+
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ message: "No error message from server." }));
+        console.error("Server error details:", errorData);
+        throw new Error(`Failed to update course. Server responded with status ${res.status}.`);
+      }
+
       setEditingCourse(null);
       closeModal('edit_course_modal');
       fetchCourses();
@@ -198,8 +214,8 @@ const ManageCourses = () => {
                   </td>
                   <td className="text-right whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                     <div className="flex justify-end gap-1 sm:gap-2">
-                      <button className="btn btn-sm btn-ghost text-primary border border-base-300" onClick={() => openEditModal(course)}>Edit</button>
-                      <button className="btn btn-sm btn-ghost text-error border border-base-300" onClick={() => confirmDelete(course._id || course.id)}>Delete</button>
+                      <button className="btn btn-sm btn-ghost text-primary border border-base-300 hover:bg-primary hover:text-white" onClick={() => openEditModal(course)}>Edit</button>
+                      <button className="btn btn-sm btn-ghost text-error border border-base-300 hover:bg-error hover:text-white" onClick={() => confirmDelete(course._id || course.id)}>Delete</button>
                     </div>
                   </td>
                 </tr>

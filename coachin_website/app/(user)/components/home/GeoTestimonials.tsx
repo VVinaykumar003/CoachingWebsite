@@ -176,9 +176,9 @@ const GeoTestimonials = () => {
               {/* Hover Overlay Details */}
               <div className={`absolute inset-0 bg-base-content/98 backdrop-blur-md p-6 flex flex-col transition-transform duration-300 z-20 overflow-y-auto custom-scrollbar ${activeCard === cardId ? 'translate-y-0' : 'translate-y-full group-hover:translate-y-0'}`}>
                 <div className="flex justify-between items-start gap-2">
-                  <h3 className="text-lg font-bold text-base-content leading-tight">{topper.name}</h3>
+                  <h3 className="text-lg font-bold text-base-100 leading-tight">{topper.name}</h3>
                   <button 
-                    className="btn btn-xs btn-circle btn-ghost lg:hidden shrink-0"
+                    className="btn btn-xs btn-circle btn-ghost lg:hidden shrink-0 text-base-100 "
                     onClick={(e) => {
                       e.stopPropagation();
                       setActiveCard(null);
@@ -197,7 +197,7 @@ const GeoTestimonials = () => {
                    ))}
                 </div>
 
-                <p className="text-sm text-base-content/80 italic mb-4 flex-grow line-clamp-4">"{topper.message || topper.quote}"</p>
+                <p className="text-sm text-base-100/80 italic mb-4 flex-grow line-clamp-4">&quot;{topper.message || topper.quote}&quot;</p>
 
                 {topper.videoId ? (
                    <a href={`https://www.youtube.com/watch?v=${topper.videoId}`} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className="btn border-none bg-red-600 text-white hover:bg-red-700 w-full mt-auto shadow-sm flex items-center justify-center gap-2 min-h-[48px]">

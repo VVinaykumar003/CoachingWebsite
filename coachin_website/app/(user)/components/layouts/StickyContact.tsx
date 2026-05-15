@@ -2,7 +2,7 @@ import React from 'react'
 
 const StickyContact = () => {
   return (
-    <div className="fixed bottom-6 left-6 z-[100] md:bottom-8 md:left-8 flex flex-col gap-3">
+    <div className="fixed bottom-6 left-6 z-[100] md:bottom-8 md:right-8 flex flex-col gap-3">
       {/* WhatsApp Button */}
       <a
         href="https://wa.me/918770459007"

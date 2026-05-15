@@ -93,7 +93,7 @@ const Footer = () => {
             <p>© {new Date().getFullYear()} Eunoia Education. All rights reserved.</p>
             <span className="hidden md:inline-block opacity-50">|</span> 
             <hr className="border-neutral-content/20 w-12 md:hidden my-1"/>
-            <Link href="/login" className="hover:text-neutral-content transition-colors font-medium">Log in</Link>
+            <Link href="/login" className="hover:text-neutral-content transition-colors font-medium cursor-pointer">Log in</Link>
           </div>
           <p className="text-center md:text-right">Powered by: <a href="https://www.zager.in/" target="_blank" rel="noopener noreferrer" className="font-bold text-neutral-content hover:text-primary transition-colors ml-1">Zager</a></p>
         </div>

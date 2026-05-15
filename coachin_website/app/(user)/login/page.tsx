@@ -78,16 +78,16 @@ const Login = () => {
       <div className="absolute bottom-[-10%] right-[-5%] w-96 h-96 bg-secondary/20 blur-[100px] rounded-full pointer-events-none"></div>
 
       <div className="w-full max-w-md relative z-10">
-        <div className="glass-panel shadow-level-3 rounded-[24px] p-8 md:p-10 border border-white/60">
+        <div className="glass-panel shadow-level-3 rounded-3xl p-8 md:p-10 border border-white/60">
           
           {/* Header */}
-          <div className="text-center mb-8">
-            <img src="/kunal_logo_ee1.png" alt="Eunoia Education" className="h-20 mx-auto mb-6 drop-shadow-sm" />
+          <div className="text-center mb-6">
+            <img src="/kunal_logo_ee1.png" alt="Eunoia Education" className="h-20 mx-auto mb-6 drop-shadow-sm border border-base-100 rounded-2xl" />
             <h1 className="text-3xl font-extrabold text-base-100 tracking-tight">Admin Portal</h1>
             <p className="text-sm text-base-100/70 mt-2">Log in to manage courses, blogs, and students securely.</p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-3">
             {error && (
               <div className="alert alert-error p-3 rounded-lg text-sm mb-2">
                 <span>{error}</span>
@@ -101,7 +101,7 @@ const Login = () => {
               <input 
                 type="text" 
                 placeholder="Enter Admin ID" 
-                className="input input-bordered input-bg-brand-gradient w-full bg-white  focus:outline-primary transition-colors" 
+                className="input  input-primary  w-full transition-colors" 
                 value={adminId}
                 onChange={(e) => setAdminId(e.target.value)}
                 required 
@@ -116,7 +116,7 @@ const Login = () => {
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="Enter Password" 
-                  className="input input-bordered input-bg-brand-gradient w-full bg-white  focus:outline-primary transition-colors pr-10" 
+                  className="input  w-full transition-colors pr-10" 
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required 
@@ -145,7 +145,7 @@ const Login = () => {
             </div>
             
             <button type="submit" className="btn border-none bg-brand-gradient text-white w-full shadow-brand-glow hover:shadow-lg hover:-translate-y-px transition-all duration-300 mt-4" disabled={loading}>
-              {loading ? <span className="loading loading-spinner"></span> : 'Secure Login'}
+              {loading ? <span className="loading loading-spinner"></span> : ' Login'}
             </button>
           </form>
         </div>

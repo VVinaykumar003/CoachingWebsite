@@ -22,7 +22,12 @@ const ManageTestimonials = () => {
 
   const fetchTestimonials = async () => {
     try {
-      const data = await fetch('/api/testimonial/get-all').then(res => res.json());
+      const response = await fetch('/api/testimonial/get-all');
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const data = await response.json();
       setTestimonials(Array.isArray(data) ? data : data.testimonials || []);
     } catch (err) {
       console.error("Failed to fetch testimonials:", err);
@@ -74,7 +79,8 @@ const ManageTestimonials = () => {
   const executeDelete = async () => {
     if (!testimonialToDelete) return;
     try {
-      const res = await fetch(`/api/testimonial/delete/${testimonialToDelete}`, { method: 'DELETE' });
+      const res = await fetch(`/api/testimonial/delete/${testimonialToDelete}`,
+         { method: 'DELETE' });
       if (!res.ok) throw new Error("Failed to delete testimonial");
       fetchTestimonials();
       setTestimonialToDelete(null);
@@ -108,7 +114,8 @@ const ManageTestimonials = () => {
     }
 
     try {
-      const res = await fetch(`/api/testimonial/update/${editingTestimonial._id || editingTestimonial.id}`, {
+      const res = await fetch(`/api/testimonial/update/${editingTestimonial._id || editingTestimonial.id}`,
+         {
         method: 'PUT',
         body: formData,
       });

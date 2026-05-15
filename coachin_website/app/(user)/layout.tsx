@@ -2,6 +2,7 @@ import Header from "./components/layouts/Header";
 import Footer from "./components/layouts/Footer";
 import StickyContact from "./components/layouts/StickyContact";
 import AIStudyPartner from "./components/layouts/AIStudyPartner";
+import ScrollToTop from "./components/layouts/ScrollToTop";
 
 export default function WebsiteLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -12,6 +13,7 @@ export default function WebsiteLayout({ children }: { children: React.ReactNode 
       <main>
         {children}
       </main>
+      <ScrollToTop />
       <StickyContact />
       <AIStudyPartner />
 

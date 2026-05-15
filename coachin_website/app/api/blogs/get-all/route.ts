@@ -1,15 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextResponse ,NextRequest } from "next/server";
 import  {connectDB}  from "../../../lib/mongodb";
-import Blog from "../../../models/blog.model";
+import blog from "../../../models/blog.model";
 
-export async function GET() {
+export const GET = async (request: NextRequest) => {
   try {
     await connectDB();
 
-    const blogs = await Blog.find().sort({ createdAt: -1 });
-    console.log(blogs);
-
-
+    const blogs = await blog.find();
     return NextResponse.json({
       success: true,
       blogs,
