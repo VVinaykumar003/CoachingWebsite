@@ -35,12 +35,12 @@ const AIStudyPartner = () => {
   };
 
   return (
-    <div className="fixed bottom-6 left-6 z-50 font-sans">
+    <div className="fixed bottom-6 left-6 z-[110] font-sans pointer-events-none">
       {/* Floating Action Button (Closed State) */}
       {!isOpen && (
         <button
           onClick={() => setIsOpen(true)}
-          className="btn btn-circle btn-lg btn-primary shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 transition-transform duration-300"
+          className="btn btn-circle btn-lg btn-primary shadow-[0_8px_30px_rgb(0,0,0,0.12)] hover:scale-105 transition-transform duration-300 pointer-events-auto"
           aria-label="Open AI Study Partner"
         >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
@@ -51,7 +51,7 @@ const AIStudyPartner = () => {
 
       {/* Chat Window (Open State) */}
       {isOpen && (
-        <div className="w-[90vw] sm:w-[400px] h-[550px] bg-base-100 rounded-[24px] shadow-2xl flex flex-col border border-base-200 overflow-hidden animate-fade-in-up origin-bottom-right transition-all">
+        <div className="w-[90vw] sm:w-[400px] h-[550px] max-h-[80vh] bg-base-100 rounded-[24px] shadow-2xl flex flex-col border border-base-200 overflow-hidden animate-fade-in-up origin-bottom-left transition-all pointer-events-auto">
           
           {/* Header */}
           <div className="bg-primary text-primary-content p-4 flex justify-between items-center shadow-sm z-10">
@@ -62,7 +62,7 @@ const AIStudyPartner = () => {
                 </svg>
               </div>
               <div>
-                <h3 className="font-bold text-lg leading-tight text-base-100">AI Mentor</h3>
+                <h3 className="font-bold text-lg leading-tight text-base-content">AI Mentor</h3>
                 <p className="text-xs opacity-80">Online & ready to help</p>
               </div>
             </div>
@@ -72,7 +72,7 @@ const AIStudyPartner = () => {
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 p-4 overflow-y-auto bg-base-200/50 flex flex-col gap-2">
+          <div className="flex-1 p-4 overflow-y-auto bg-base-content flex flex-col gap-2">
             {messages.map((msg, idx) => (
               <div key={idx} className={`chat ${msg.sender === 'user' ? 'chat-end' : 'chat-start'}`}>
                 <div className={`chat-bubble ${msg.sender === 'user' ? 'chat-bubble-primary text-primary-content' : 'chat-bubble-base-100 bg-base-100 text-base-content shadow-sm border border-base-200'}`}>
@@ -95,7 +95,7 @@ const AIStudyPartner = () => {
 
           {/* Suggested Questions Pills (Only visible when AI is not thinking to prevent mis-clicks) */}
           {!isThinking && (
-            <div className="px-4 py-3 bg-base-200/30 flex gap-2 overflow-x-auto whitespace-nowrap border-t border-base-200 custom-scrollbar">
+            <div className="px-4 py-3 bg-base-content flex gap-2 overflow-x-auto whitespace-nowrap border-t border-base-200 custom-scrollbar">
               {suggestions.map((suggestion, idx) => (
                 <button
                   key={idx}
@@ -109,20 +109,20 @@ const AIStudyPartner = () => {
           )}
 
           {/* Input Area */}
-          <div className="p-4 bg-base-100 border-t border-base-200">
+          <div className="p-4 bg-base-content border-t border-base-200">
             <form onSubmit={(e: React.FormEvent) => { e.preventDefault(); handleSend(inputValue); }} className="flex gap-2">
               <input
                 type="text"
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Ask anything..."
-                className="input input-bordered w-full rounded-full focus:outline-primary min-h-[44px]"
+                className="input border border-primary bg-base-content w-full rounded-full focus:outline-primary min-h-[44px]"
                 disabled={isThinking}
               />
               <button
                 type="submit"
                 disabled={isThinking || !inputValue.trim()}
-                className="btn btn-circle btn-primary min-h-[44px] min-w-[44px] shadow-md disabled:bg-base-300 disabled:text-base-content/30"
+                className="btn btn-circle btn-primary bg-primary min-h-[44px] min-w-[44px] shadow-md disabled:bg-base-300 disabled:text-base-content/30"
                 aria-label="Send Message"
               >
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5 -mr-1">

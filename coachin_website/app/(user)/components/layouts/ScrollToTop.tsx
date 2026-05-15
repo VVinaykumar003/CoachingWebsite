@@ -27,10 +27,10 @@ const ScrollToTop = () => {
   }, []);
 
   return (
-    <div className="fixed bottom-6 right-6 z-[100] md:bottom-8 md:right-8">
+    <div className="fixed bottom-6 right-6 z-[100] md:bottom-8 md:right-8 pointer-events-none">
       <button
         onClick={scrollToTop}
-        className={`btn btn-circle btn-primary shadow-lg transition-all duration-300 transform ${isVisible ? 'opacity-100 translate-y-0 visible' : 'opacity-0 translate-y-4 invisible'}`}
+        className={`btn btn-circle btn-primary shadow-lg transition-all duration-300 transform pointer-events-auto ${isVisible ? 'opacity-100 translate-y-0 visible' : 'opacity-0 translate-y-4 invisible'}`}
         aria-label="Scroll to top"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 import Link from 'next/link';
 import Image from "next/image";
@@ -88,7 +89,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="divider border-base-300 my-0"></div>
-        <div className="flex flex-col md:flex-row justify-between items-center py-6 gap-4 text-sm text-neutral-content/70">
+        <div className="flex flex-col md:flex-row justify-between items-center pt-6 pb-28 md:pb-12 gap-4 text-sm text-neutral-content/70">
           <div className="flex flex-col md:flex-row items-center gap-2 md:gap-3 text-center md:text-left">
             <p>© {new Date().getFullYear()} Eunoia Education. All rights reserved.</p>
             <span className="hidden md:inline-block opacity-50">|</span> 

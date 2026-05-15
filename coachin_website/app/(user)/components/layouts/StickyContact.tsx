@@ -2,13 +2,13 @@ import React from 'react'
 
 const StickyContact = () => {
   return (
-    <div className="fixed bottom-6 left-6 z-[100] md:bottom-8 md:right-8 flex flex-col gap-3">
+    <div className="fixed bottom-28 left-6 z-[100] md:bottom-28 md:left-8 flex flex-col gap-3 pointer-events-none">
       {/* WhatsApp Button */}
       <a
         href="https://wa.me/918770459007"
         target="_blank"
         rel="noopener noreferrer"
-        className="btn btn-circle bg-[#25D366] hover:bg-[#1EBE5D] border-none text-white shadow-lg hover:scale-110 transition-transform w-12 h-12 md:w-14 md:h-14 flex items-center justify-center"
+        className="btn btn-circle bg-[#25D366] hover:bg-[#1EBE5D] border-none text-white shadow-lg hover:scale-110 transition-transform w-12 h-12 md:w-14 md:h-14 flex items-center justify-center pointer-events-auto"
         aria-label="Contact on WhatsApp"
         title="Chat with us on WhatsApp"
       >
@@ -20,7 +20,7 @@ const StickyContact = () => {
       {/* Phone Button */}
       <a
         href="tel:+918770459007"
-        className="btn btn-circle bg-primary hover:bg-primary/90 border-none text-white shadow-lg hover:scale-110 transition-transform w-12 h-12 md:w-14 md:h-14 flex items-center justify-center"
+        className="btn btn-circle bg-primary hover:bg-primary/90 border-none text-white shadow-lg hover:scale-110 transition-transform w-12 h-12 md:w-14 md:h-14 flex items-center justify-center pointer-events-auto"
         aria-label="Call Us"
         title="Call Us Directly"
       >

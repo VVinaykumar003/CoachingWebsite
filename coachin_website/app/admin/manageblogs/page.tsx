@@ -457,7 +457,7 @@ const ManageBlogs = () => {
           </div>
 
           <div className="p-6 border-t border-base-200 bg-base-content flex justify-end gap-2">
-              <button type="button" className="btn btn-ghost" onClick= {closeModal}>Cancel</button>
+              <button type="button" className="btn btn-ghost" onClick={() => closeModal('add_blog_modal')}>Cancel</button>
               <button type="submit" disabled={isSubmitting} className="btn border-none bg-brand-gradient shadow-elevation-soft">
                 {isSubmitting ? <span className="loading loading-spinner"></span> : "Publish Post"}
               </button>
@@ -515,7 +515,7 @@ const ManageBlogs = () => {
           </div>
 
           <div className="p-6 border-t border-base-200 bg-base-content flex justify-end gap-2">
-              <button type="button" className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+              <button type="button" className="btn btn-ghost" onClick={() => { setEditingBlog(null); closeModal('edit_blog_modal'); }}>Cancel</button>
               <button type="submit" disabled={isSubmitting} className="btn border-none bg-brand-gradient shadow-elevation-soft">
                 {isSubmitting ? <span className="loading loading-spinner"></span> : "Update Post"}
               </button>
@@ -533,7 +533,7 @@ const ManageBlogs = () => {
           <h3 className="font-bold text-xl text-error">Confirm Deletion</h3>
           <p className="py-4 text-base-content/80">Are you sure you want to delete this blog post? This action cannot be undone.</p>
           <div className="modal-action">
-            <button type="button" className="btn btn-ghost" onClick={closeModal}>Cancel</button>
+            <button type="button" className="btn btn-ghost" onClick={() => { setBlogToDelete(null); closeModal('delete_confirm_modal'); }}>Cancel</button>
             <button type="button" className="btn btn-error text-white" onClick={executeDelete}>
               Yes, Delete Post
             </button>
@@ -590,7 +590,7 @@ const ManageBlogs = () => {
               </div>
               <div className="p-6 border-t border-base-200 bg-base-content flex justify-end gap-2">
                 <button className="btn btn-outline text-primary" onClick={() => { setViewingBlog(null); openEditModal(viewingBlog); }}>Edit Post</button>
-                <button className="btn btn-outline text-error hover:bg-error hover:text-white" onClick={() => { setViewingBlog(null); confirmDelete(viewingBlog._id || viewingBlog.id); }}>Delete</button>
+                <button className="btn btn-outline text-error hover:bg-error hover:text-white" onClick={() => { setViewingBlog(null); confirmDelete(viewingBlog._id || viewingBlog.id || ""); }}>Delete</button>
               </div>
             </>
           )}
