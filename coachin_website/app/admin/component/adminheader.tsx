@@ -11,15 +11,15 @@ const AdminHeader = () => {
     // Clear the secure admin token
     localStorage.removeItem('adminToken');
     // Redirect back to the login page
-    router.push('/admin/login');
+    router.push('/login');
   };
 
   return (
-    <header className="navbar bg-base-content shadow-level-1 sticky top-0 z-50 px-4">
+    <header className="navbar bg-base-content shadow-level-1 sticky top-0 z-50 px-4 border-b border-white/[0.08]">
       <div className="flex-1 flex items-center">
-        <Link href="/admin" className="btn btn-ghost border-none">
+        {/* <Link href="/admin" className="btn btn-ghost border-none">
           <img src="/kunal_logo_ee1.png" alt="Eunoia Education Logo" className="h-10 md:h-12 w-auto max-w-full object-contain" loading='lazy' />
-        </Link>
+        </Link> */}
        
       </div>
       <div className="flex-none flex items-center gap-4">

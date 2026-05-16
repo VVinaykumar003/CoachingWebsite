@@ -71,6 +71,9 @@ const UdemyCourseCard = () => {
                 <h3 className="card-title text-base-content text-[16px] md:text-[17px] font-extrabold leading-snug line-clamp-2">
                   {course.courseName || course.title}
                 </h3>
+                 <p className="text-xs text-base-content/80 mt-2 line-clamp-2 lg:hidden">
+                      {course.description || "Master the concepts with this comprehensive course. Includes live sessions, weekly reports, and doubt solving."}
+                    </p>
                 
                 <div className="mt-auto pt-4 w-full">
                   <a 

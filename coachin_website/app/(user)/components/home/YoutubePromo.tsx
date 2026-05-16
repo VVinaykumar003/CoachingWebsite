@@ -15,22 +15,22 @@ const YouTubePromo = () => {
       {/* Subscriber Milestone & Stats Component */}
       <div className="flex justify-center mb-12">
         <div className="stats shadow stats-vertical lg:stats-horizontal w-full max-w-3xl">
-          <div className="stat place-items-center ">
-            <div className="stat-title">Subscribers</div>
+          <div className="stat place-items-center border-r-2">
+            <div className="stat-title text-base-100/70">Subscribers</div>
             <div className="stat-value text-error">50K+</div>
-            <div className="stat-desc">Growing every day</div>
+            <div className="stat-desc text-base-100">Growing every day</div>
           </div>
           
-          <div className="stat place-items-center">
-            <div className="stat-title">Total Views</div>
+          <div className="stat place-items-center border-r-2">
+            <div className="stat-title text-base-100">Total Views</div>
             <div className="stat-value">2.5M</div>
-            <div className="stat-desc">Across all tutorials</div>
+            <div className="stat-desc text-base-100">Across all tutorials</div>
           </div>
           
-          <div className="stat place-items-center">
-            <div className="stat-title">New Content</div>
+          <div className="stat place-items-center ">
+            <div className="stat-title text-base-100">New Content</div>
             <div className="stat-value text-primary">Weekly</div>
-            <div className="stat-desc">Fresh projects & tips</div>
+            <div className="stat-desc text-base-100">Fresh projects & tips</div>
           </div>
         </div>
       </div>

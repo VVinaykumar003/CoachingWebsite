@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import jwt from "jsonwebtoken";
+import { jwtVerify } from "jose";
 
-export function middleware(req: NextRequest) {
-  const token = req.cookies.get("token")?.value;
+export async function middleware(req: NextRequest) {
+  const token = req.cookies.get("adminToken")?.value;
 
   const isAdminRoute = req.nextUrl.pathname.startsWith("/admin");
 
@@ -17,7 +17,9 @@ export function middleware(req: NextRequest) {
   }
 
   try {
-    jwt.verify(token, process.env.JWT_SECRET as string);
+    // jose requires the secret to be encoded as a Uint8Array
+    const secret = new TextEncoder().encode(process.env.JWT_SECRET);
+    await jwtVerify(token, secret);
 
     return NextResponse.next();
   } catch (error) {

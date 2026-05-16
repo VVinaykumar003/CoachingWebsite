@@ -79,8 +79,13 @@ const NewCardSection = () => {
                       {course.instructor || "Kunal Sir"}
                     </p>
                     
+                    {/* Mobile Description: Visible only on smaller screens where hover is unavailable */}
+                    <p className="text-xs text-base-100/80 mt-2 line-clamp-2 lg:hidden">
+                      {course.description || "Master the concepts with this comprehensive course. Includes live sessions, weekly reports, and doubt solving."}
+                    </p>
+                    
                     {/* Star Rating Row */}
-                    <div className="flex items-center gap-1.5 mt-1.5">
+                    {/* <div className="flex items-center gap-1.5 mt-1.5">
                       <span className="font-bold text-sm text-amber-700">{rating.toFixed(1)}</span>
                       <div className="flex items-center">
                         {[...Array(fullStars)].map((_, i) => <Star key={`full-${i}`} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" />)}
@@ -88,12 +93,12 @@ const NewCardSection = () => {
                         {[...Array(emptyStars)].map((_, i) => <Star key={`empty-${i}`} className="w-3.5 h-3.5 text-amber-500" />)}
                       </div>
                       <span className="text-xs text-base-100/60">({course.reviews || "321,456"})</span>
-                    </div>
+                    </div> */}
                     
                     {/* Price & Action */}
                     <div className="mt-auto pt-3 flex items-center justify-between">
                       <div className="font-extrabold text-base-100 text-lg">
-                        {course.price || "₹4,999"}
+                        {/* {course.price || "₹4,999"} */}
                       </div>
                       <a 
                         href={course.redirectLink || course.externalLink || '#'} 

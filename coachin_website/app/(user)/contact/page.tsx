@@ -1,6 +1,46 @@
-import React from 'react';
+"use client";
+
+import React, { useState } from 'react';
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    fullName: '',
+    whatsapp: '',
+    batch: '',
+    course: '',
+    message: ''
+  });
+  const [status, setStatus] = useState('idle' as 'idle' | 'loading' | 'success' | 'error');
+  const [errorMessage, setErrorMessage] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setStatus('loading');
+    setErrorMessage('');
+
+    try {
+      const res = await fetch('/api/admin/contact/post', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) throw new Error(data.error || 'Failed to submit request');
+      
+      setStatus('success');
+      setFormData({ fullName: '', whatsapp: '', batch: '', course: '', message: '' }); // Reset form
+    } catch (error: any) {
+      setStatus('error');
+      setErrorMessage(error.message);
+    }
+  };
+
   const faqs = [
     {
       question: "How do I join a demo class?",
@@ -75,31 +115,88 @@ const Contact = () => {
           {/* Right Side: Form */}
           <div>
             <div className="card bg-white shadow-layered-card border border-[#E2E8F0] rounded-2xl p-6">
-              <form className="space-y-4">
+              <form className="space-y-4" onSubmit={handleSubmit}>
                 <div className="form-control">
                   <label className="label"><span className="label-text font-medium">Full Name</span></label>
-                  <input type="text" placeholder="e.g., Rahul Sharma" className="input  input-bordered w-full bg-[#F8FAFC] focus:bg-white  transition-colors" required />
+                  <input 
+                    type="text" 
+                    name="fullName"
+                    value={formData.fullName}
+                    onChange={handleChange}
+                    placeholder="e.g., Rahul Sharma" 
+                    className="input input-bordered w-full bg-[#F8FAFC] focus:bg-white transition-colors" 
+                    required 
+                  />
                 </div>
                 <div className="form-control">
                   <label className="label"><span className="label-text font-medium">WhatsApp Number</span></label>
-                  <input type="tel" placeholder="e.g., 9876543210" className="input input-bordered w-full bg-[#F8FAFC] focus:bg-white transition-colors" required />
+                  <input 
+                    type="tel" 
+                    name="whatsapp"
+                    value={formData.whatsapp}
+                    onChange={handleChange}
+                    placeholder="e.g., 9876543210" 
+                    className="input input-bordered w-full bg-[#F8FAFC] focus:bg-white transition-colors" 
+                    required 
+                  />
+                </div>
+                <div className="form-control">
+                  <label className="label"><span className="label-text font-medium">Batch</span></label>
+                  <input 
+                    type="text" 
+                    name="batch"
+                    value={formData.batch}
+                    onChange={handleChange}
+                    placeholder="e.g., 9876543210" 
+                    className="input input-bordered w-full bg-[#F8FAFC] focus:bg-white transition-colors" 
+                    required 
+                  />
                 </div>
                 <div className="form-control">
                   <label className="label"><span className="label-text font-medium">Interested Course</span></label>
-                  <select className="select select-bordered w-full bg-[#F8FAFC] focus:bg-white transition-colors">
-                    <option disabled selected>Pick one</option>
-                    <option>Class 12th Physics Mastery</option>
-                    <option>Basic Mathematics for Physics</option>
-                    <option>Foundation Science (Class 9th & 10th)</option>
-                    <option>Other Inquiry</option>
+                  <select 
+                    name="course"
+                    value={formData.course}
+                    onChange={handleChange}
+                    className="select select-bordered w-full bg-[#F8FAFC] focus:bg-white transition-colors"
+                    required
+                  >
+                    <option value="" disabled>Pick one</option>
+                    <option value="Class 12th Physics Mastery">Class 12th Physics Mastery</option>
+                    <option value="Basic Mathematics for Physics">Basic Mathematics for Physics</option>
+                    <option value="Foundation Science (Class 9th & 10th)">Foundation Science (Class 9th & 10th)</option>
+                    <option value="Other Inquiry">Other Inquiry</option>
                   </select>
                 </div>
                 <div className="form-control flex flex-col">
                   <label className="label"><span className="label-text font-medium">Your Message </span></label>
-                  <textarea className="textarea textarea-primary  text-base-100 bg-white w-full border focus:border-black" placeholder="Tell us how we can help..."></textarea>
+                  <textarea 
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    className="textarea textarea-primary text-base-100 bg-white w-full border focus:border-black" 
+                    placeholder="Tell us how we can help..."
+                  ></textarea>
                 </div>
+                
+                {status === 'success' && (
+                  <div className="alert alert-success text-white text-sm rounded-lg py-2">
+                    <span>Request sent successfully! We will contact you soon.</span>
+                  </div>
+                )}
+                {status === 'error' && (
+                  <div className="alert alert-error text-white text-sm rounded-lg py-2">
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
+
                 <div className="form-control pt-4">
-                  <button className="btn border-none bg-brand-gradient text-white shadow-brand-glow hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,188,212,0.7)] transition-all duration-300 btn-lg w-full">Request a Free Demo Class</button>
+                  <button 
+                    disabled={status === 'loading'}
+                    className="btn border-none bg-brand-gradient text-white shadow-brand-glow hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,188,212,0.7)] transition-all duration-300 btn-lg w-full disabled:opacity-70"
+                  >
+                    {status === 'loading' ? 'Sending...' : 'Request a Free Demo Class'}
+                  </button>
                 </div>
               </form>
               <p className="text-center text-sm mt-4 text-base-100/70">

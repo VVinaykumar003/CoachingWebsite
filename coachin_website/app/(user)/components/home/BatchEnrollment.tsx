@@ -1,39 +1,57 @@
 "use client"
 
-import React, { useRef } from 'react';
+import React, {useState, useEffect, useRef } from 'react';
 import  Link  from 'next/link';
 
 
 // JSON Structure to manage offline batches
-const batches = [
-  {
-    id: 1,
-    name: "High Focus Dropper (JEE/NEET)",
-    timing: "8:00 AM – 2:00 PM",
-    startDate: "12 May, 2026",
-    totalSeats: 10,
-    filledSeats: 8
-  },
-  {
-    id: 2,
-    name: "Standard Batch (Class 12)",
-    timing: "4:00 PM – 7:00 PM",
-    startDate: "15 May, 2026",
-    totalSeats: 20,
-    filledSeats: 18
-  },
-  {
-    id: 3,
-    name: "Standard Batch (Class 11)",
-    timing: "5:00 PM – 6:30 PM",
-    startDate: "01 Jun, 2026",
-    totalSeats: 20,
-    filledSeats: 15
-  }
-];
+// const batches = [
+//   {
+//     id: 1,
+//     name: "High Focus Dropper (JEE/NEET)",
+//     timing: "8:00 AM – 2:00 PM",
+//     startDate: "12 May, 2026",
+//     totalSeats: 10,
+//     filledSeats: 8
+//   },
+//   {
+//     id: 2,
+//     name: "Standard Batch (Class 12)",
+//     timing: "4:00 PM – 7:00 PM",
+//     startDate: "15 May, 2026",
+//     totalSeats: 20,
+//     filledSeats: 18
+//   },
+//   {
+//     id: 3,
+//     name: "Standard Batch (Class 11)",
+//     timing: "5:00 PM – 6:30 PM",
+//     startDate: "01 Jun, 2026",
+//     totalSeats: 20,
+//     filledSeats: 15
+//   }
+// ];
 
 const BatchEnrollment = () => {
   const mapModalRef = useRef<HTMLDialogElement>(null);
+  const [batches,setBatches] = useState<any[]>([]);
+
+  useEffect(() => {
+
+    const fetchBatches = async () => {
+      try {
+        const response = await fetch('/api/admin/batches/get-all');
+        const data = await response.json();
+        setBatches(Array.isArray(data) ? data : data.batches || []);
+      } catch (error) {
+        console.error('Error fetching batches:', error);
+      }
+
+    };
+
+    fetchBatches();
+  }, []);
+
 
   return (
     <div className="container mx-auto px-4 max-w-7xl py-4 md:py-6 font-sans border-b border-[#E2E8F0]">
@@ -59,15 +77,15 @@ const BatchEnrollment = () => {
 
       {/* Batches Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
-        {batches.map((batch) => {
+        {(batches || []).slice(0, 3).map((batch) => {
           return (
-            <div key={batch.id} className="card bg-white shadow-soft-elevation  rounded-[16px] hover:shadow-level-3 hover:-translate-y-2 transition-all duration-300 border-2 border-base-300 shadow-md">
+            <div key={batch._id || batch.id} className="card bg-white shadow-soft-elevation  rounded-[16px] hover:shadow-level-3 hover:-translate-y-2 transition-all duration-300 border-2 border-base-300 shadow-md">
               <div className="card-body">
                 <div className="flex justify-between items-start mb-2">
-                  <h3 className="card-title text-2xl font-bold leading-tight pr-2">{batch.name}</h3>
+                  <h3 className="card-title text-2xl font-bold leading-tight pr-2">{batch.batchName || batch.name}</h3>
                 </div>
                 <div className="text-sm font-bold text-primary mb-1">
-                  {batch.totalSeats <= 10 ? "High Intensity (Max 10 Seats)" : "Personalized Focus (Max 20 Seats)"}
+                  Size: {batch.batchSize || `${batch.totalSeats} Seats`}
                 </div>
 
                 <div className="space-y-3 mt-4 mb-6 text-base-100/80 font-medium">
@@ -77,7 +95,7 @@ const BatchEnrollment = () => {
                   </div>
                   <div className="flex items-center gap-3">
                     <div className="p-2 bg-primary/10 rounded-lg text-primary"><svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg></div>
-                    <span>Starts: {batch.startDate}</span>
+                    <span>Starts: {batch.startingDate ? new Date(batch.startingDate).toLocaleDateString() : batch.startDate}</span>
                   </div>
                 </div>
 

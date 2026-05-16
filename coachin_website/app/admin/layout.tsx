@@ -3,6 +3,8 @@ import AdminHeader from "./component/adminheader";
 
 export default function AdminLayout({ children  } : { children: React.ReactNode }) {
   return (
+    <>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/dist/tabler-icons.min.css" />
     <div className="flex min-h-screen bg-base-content overflow-hidden">
 
       {/* SIDEBAR */}
@@ -21,5 +23,6 @@ export default function AdminLayout({ children  } : { children: React.ReactNode 
 
       </div>
     </div>
+    </>
   );
 }

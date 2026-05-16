@@ -1,133 +1,276 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+
+interface StatData {
+  icon: string;
+  color: string;
+  iconColor: string;
+  label: string;
+  value: string | number;
+  meta: [string, string][];
+  metaColor: string;
+}
+
+interface RegistrationData {
+  initials: string;
+  name: string;
+  email: string;
+  course: string;
+  batch: string;
+  date: string;
+  status: string;
+}
+
+const defaultStats: StatData[] = [
+  {
+    icon: 'ti-users',
+    color: 'rgba(99,102,241,0.15)',
+    iconColor: '#ffffff',
+    label: 'Total students',
+    value: '1,200',
+    meta: [['Applied this month', '320'], ['Growth', '↗ 22%']],
+    metaColor: 'green',
+  },
+  {
+    icon: 'ti-books',
+    color: 'rgba(29,158,117,0.15)',
+    iconColor: '#5DCAA5',
+    label: 'Active courses',
+    value: '24',
+    meta: [['Batches running', '8'], ['New this month', '↗ 4']],
+    metaColor: 'green',
+  },
+  {
+    icon: 'ti-currency-dollar',
+    color: 'rgba(186,117,23,0.15)',
+    iconColor: '#FAC775',
+    label: 'Monthly revenue',
+    value: '$89.4k',
+    meta: [['vs last month', '↗ 18%'], ['Increase', '+$14k']],
+    metaColor: 'green',
+  },
+  {
+    icon: 'ti-checklist',
+    color: 'rgba(226,75,74,0.15)',
+    iconColor: '#ffffff ',
+    label: 'Pending tasks',
+    value: '12',
+    meta: [['vs last week', '↘ −3'], ['Overdue', '2']],
+    metaColor: 'amber',
+  },
+];
+
+const shortcuts = [
+  { href: '/admin/managecourses', icon: 'ti-books', color: 'rgba(29,158,117,0.15)', iconColor: '#999999', label: 'Courses', value: '24 active' },
+  { href: '/admin/manageblogs',   icon: 'ti-article', color: 'rgba(99,102,241,0.15)', iconColor: '#ffffff', label: 'Blogs', value: '38 published' },
+  { href: '/admin/managetestimonial', icon: 'ti-star', color: 'rgba(186,117,23,0.15)', iconColor: '#ffffff', label: 'Testimonials', value: '14 pending' },
+];
+
+const defaultRegistrations: RegistrationData[] = [
+  { initials: 'JD', name: 'John Doe', email: 'john@example.com', course: 'React Mastery', batch: 'Batch 3', date: 'Oct 24', status: 'Active' },
+  { initials: 'JS', name: 'Jane Smith', email: 'jane@example.com', course: 'Advanced Node', batch: 'Batch 1', date: 'Oct 23', status: 'Pending' },
+  { initials: 'AK', name: 'Arjun Kumar', email: 'arjun@example.com', course: 'UI/UX Design', batch: 'Batch 2', date: 'Oct 22', status: 'Active' },
+];
+
+const statusStyles: Record<string, string> = {
+  Active:  'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
+  Pending: 'bg-amber-500/10  text-amber-400  border border-amber-500/20',
+  Dropped: 'bg-red-500/10    text-red-400    border border-red-500/20',
+};
 
 export default function AdminDashboard() {
-  return (
-    <div className="space-y-6">
-      
-      {/* Stats Overview */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        <div className="stat bg-base-content shadow-sm rounded-[16px] border border-base-200">
-          <div className="stat-figure text-primary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-          </div>
-          <div className="stat-title font-medium text-primary">Total Students</div>
-          <div className="stat-value text-primary">1,200</div>
-          <div className="stat-desc text-primary">↗︎ 400 (22%)</div>
-        </div>
-        
-        <div className="stat bg-base-content shadow-sm rounded-[16px] border border-base-200">
-          <div className="stat-figure text-secondary">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
-          </div>
-          <div className="stat-title font-medium text-secondary">Active Courses</div>
-          <div className="stat-value text-secondary">24</div>
-          <div className="stat-desc text-secondary">↗︎ 4 (14%)</div>
-        </div>
-        
-        <div className="stat bg-base-content shadow-sm rounded-[16px] border border-base-200">
-          <div className="stat-figure text-accent">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-          </div>
-          <div className="stat-title font-medium text-accent">Monthly Revenue</div>
-          <div className="stat-value text-accent">$89.4k</div>
-          <div className="stat-desc text-accent">↗︎ $14k (18%)</div>
-        </div>
+  const [dashboardStats, setDashboardStats] = useState(defaultStats as StatData[]);
+  const [recentRegistrations, setRecentRegistrations] = useState(defaultRegistrations as RegistrationData[]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null as string | null);
+  const [contactInfo, setContactInfo] = useState([] as any[]);
 
-        <div className="stat bg-base-content shadow-sm rounded-[16px] border border-base-200">
-          <div className="stat-figure text-info">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="inline-block w-8 h-8 stroke-current"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-          </div>
-          <div className="stat-title font-medium text-info">Pending Tasks</div>
-          <div className="stat-value text-info">12</div>
-          <div className="stat-desc text-info">↘︎ 3 less than last week</div>
-        </div>
+  useEffect(() => {
+    const fetchDashboardData = async () => {
+      try {
+        const token = localStorage.getItem('adminToken');
+        
+        // TODO: Replace with your actual backend endpoint
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
+        const response = await fetch(`${apiUrl}/api/admin/dashboard`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+
+        if (!response.ok) throw new Error('Failed to fetch dashboard data');
+
+        const data = await response.json();
+        if (data.stats) setDashboardStats(data.stats);
+        if (data.registrations) setRecentRegistrations(data.registrations);
+      } catch (err: any) {
+        console.error(err);
+        setError(err.message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchDashboardData();
+  }, []);
+
+  useEffect(()=>{
+    const fetchContactInfo = async () => {
+      try{
+        const token = localStorage.getItem('adminToken');
+        const res = await fetch('/api/admin/contact/get-all', {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+        if(!res.ok) throw new Error('Failed to fetch contact info');
+        const data = await res.json();
+        setContactInfo(data);
+        console.log('Contact info:', data);
+      }catch(err:any){
+        console.error('Contact API error:', err);
+        setError(err.message);
+      }
+    };
+    fetchContactInfo();
+
+  },[])
+
+  if (isLoading) {
+    return (
+      <div className="flex h-[60vh] w-full items-center justify-center">
+        <span className="loading loading-spinner loading-lg text-primary"></span>
       </div>
+    );
+  }
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* Recent Registrations Table */}
-        <div className="card bg-base-content shadow-sm border border-base-200 lg:col-span-2">
-          <div className="card-body p-4 sm:p-6">
-            <h2 className="card-title text-lg mb-2">Recent Registrations</h2>
-            <div className="overflow-x-auto">
-              <table className="table w-full ">
-                <thead className="bg-brand-gradient">
-                  <tr className='rounded-tl-lg'>
-                    <th>Student</th>
-                    <th>Course</th>
-                    <th>Date</th>
-                    <th>Status</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="hover">
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar placeholder hidden sm:flex">
-                          <div className="bg-neutral text-neutral-content rounded-full w-8">
-                            <span className="text-xs">JD</span>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold text-sm sm:text-base">John Doe</div>
-                          <div className="text-xs opacity-50">john@example.com</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="font-medium text-sm sm:text-base">React Mastery</td>
-                    <td className="text-sm">Oct 24</td>
-                    <td><span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-semibold bg-success/10 text-success border border-success/20">Active</span></td>
-                  </tr>
-                  <tr className="hover">
-                    <td>
-                      <div className="flex items-center gap-3">
-                        <div className="avatar placeholder hidden sm:flex">
-                          <div className="bg-neutral text-neutral-content rounded-full w-8">
-                            <span className="text-xs">JS</span>
-                          </div>
-                        </div>
-                        <div>
-                          <div className="font-bold text-sm sm:text-base">Jane Smith</div>
-                          <div className="text-xs opacity-50">jane@example.com</div>
-                        </div>
-                      </div>
-                    </td>
-                    <td className="font-medium text-sm sm:text-base">Advanced Node</td>
-                    <td className="text-sm">Oct 23</td>
-                    <td><span className="inline-flex items-center justify-center px-3 py-1 rounded-full text-xs font-semibold bg-warning/10 text-warning border border-warning/20">Pending</span></td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="card-actions justify-end mt-4">
-              <button className="btn btn-sm btn-ghost">View All</button>
-            </div>
-          </div>
-        </div>
+  return (
+    <div className="space-y-6 p-1">
 
-        {/* Quick Actions & Recent Activity */}
-        <div className="space-y-6">
-          <div className="card bg-base-content shadow-sm border border-base-200 min-w-0">
-            <div className="card-body p-4 sm:p-6">
-              <h2 className="card-title text-lg mb-2">Quick Actions</h2>
-              <div className="flex flex-col gap-3">
-                <button className="btn btn-primary w-full shadow-sm hover:-translate-y-px transition-transform">
-                  Create New Course
-                </button>
-                <button className="btn btn-outline btn-secondary w-full">
-                  Send Announcement
-                </button>
-                <button className="btn btn-ghost w-full border border-base-300">
-                  Generate Report
-                </button>
+      {/* Stat cards */}
+      <div>
+        <p className="text-[11px] uppercase tracking-widest text-base-100 font-medium mb-3">Overview</p>
+        {error && <p className="text-xs text-error mb-3">Warning: Could not load live data. ({error})</p>}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {dashboardStats.map((s) => (
+            <div key={s.label} className="bg-brand-gradient rounded-2xl border border-white/[0.08] p-4">
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3 text-lg"
+                style={{ background: s.color, color: s.iconColor }}>
+                <i className={`ti ${s.icon}`} aria-hidden="true" />
+              </div>
+              <p className="text-[11px] text-base-content mb-1">{s.label}</p>
+              <p className="text-2xl font-medium text-base-content mb-2 leading-none">{s.value}</p>
+              <div className="border-t border-white/[0.08] pt-2 space-y-1">
+                {s.meta.map(([k, v]) => (
+                  <div key={k} className="flex justify-between text-[11px]">
+                    <span className="text-base-content">{k}</span>
+                    <span className="text-base-content">{v}</span>
+                  </div>
+                ))}
               </div>
             </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Shortcuts */}
+      <div>
+        <p className="text-[11px] uppercase tracking-widest text-base-100/80 font-medium mb-3">Quick access</p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {shortcuts.map((s) => (
+            <Link key={s.href} href={s.href}
+              className="bg-brand-gradient rounded-2xl border border-white/[0.08] rounded-xl p-3 flex items-center gap-3 hover:bg-[#222840] transition-colors">
+              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+                style={{ background: s.color, color: s.iconColor }}>
+                <i className={`ti ${s.icon}`} aria-hidden="true" />
+              </div>
+              <div>
+                <p className="text-[11px] text-white/40">{s.label}</p>
+                <p className="text-sm font-medium text-slate-100">{s.value}</p>
+              </div>
+              <i className="ti ti-chevron-right ml-auto text-white/20 text-sm" aria-hidden="true" />
+            </Link>
+          ))}
+        </div>
+      </div>
+
+      {/* Table + Quick Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-3">
+        <div className="bg-base-content rounded-2xl border border-base-100 lg:col-span-2 overflow-hidden">
+          <div className="flex justify-between items-center px-4 py-3 border-b bg-brand-gradient border-white/[0.08]">
+            <span className="text-sm font-medium text-slate-100">Recent registrations</span>
+            <button className="text-[11px] text-indigo-400/80">View all</button>
+          </div>
+          <div className="overflow-x-auto">
+            <table className="w-full">
+              <thead>
+                <tr className="text-[11px] text-base-100/80 font-medium border-b border-base-100/10">
+                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Student</th>
+                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Course</th>
+                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Batch</th>
+                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Date</th>
+                  {/* <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Status</th> */}
+                </tr>
+              </thead>
+              <tbody>
+                {contactInfo.map((r) => (
+                  <tr key={r.email} className="border-b border-white/[0.05] last:border-none hover:bg-white/[0.02]">
+                    <td className="px-4 py-2.5">
+                      <div className="flex items-center gap-2">
+                        <div className="w-7 h-7 rounded-full bg-indigo-500/20 text-base-300 flex items-center justify-center text-[10px] font-medium flex-shrink-0">
+                          {r.initials}
+                        </div>
+                        <div>
+                          <p className="text-xs font-medium text-base-300">{r.fullName
+}</p>
+                          
+                        </div>
+                      </div>
+                    </td>
+                    <td className="px-4 py-2.5 text-xs text-base-300">{r.course}</td>
+                    <td className="px-4 py-2.5 text-xs text-base-300">{r.batch}</td>
+                    <td className="px-4 py-2.5 text-xs text-base-300">{r.createdAt}</td>
+                    {/* <td className="px-4 py-2.5">
+                      <span className={`text-[10px] font-medium px-2 py-1 rounded-full ${statusStyles[r.status] || 'bg-gray-500/10 text-gray-400 border border-gray-500/20'}`}>
+                        {r.status}
+                      </span>
+                    </td> */}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
-        
+
+        <div className="bg-brand-content rounded-2xl border border-base-100 ">
+          <div className="px-4 py-3 border-b border-white/[0.08] bg-brand-gradient  rounded-t-2xl">
+            <span className="text-sm font-medium text-slate-100 ">Quick actions</span>
+          </div>
+          <div className="p-3 flex flex-col gap-2">
+            {[
+              { icon: 'ti-plus', label: 'New course', primary: true },
+              { icon: 'ti-speakerphone', label: 'Announcement', primary: false },
+              { icon: 'ti-file-analytics', label: 'Generate report', primary: false },
+              { icon: 'ti-users-plus', label: 'Add batch', primary: false },
+            ].map((a) => (
+              <button key={a.label}
+                className={`flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-xs font-medium transition-colors
+                  ${a.primary
+                    ? 'bg-indigo-500/20 text-base-300 hover:bg-indigo-500/30'
+                    : 'text-base-100/50 border border-white/[0.08] hover:bg-white/[0.05] hover:text-base-100/75'
+                  }`}>
+                <i className={`ti ${a.icon} text-[15px]`} aria-hidden="true" />
+                {a.label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
+
     </div>
   );
 }

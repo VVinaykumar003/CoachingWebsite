@@ -34,8 +34,10 @@ const Login = () => {
       const data = await res.json();
 
       if (data.success) {
+        // Set the token as a cookie so the server-side middleware can read it
+        document.cookie = `adminToken=${data.token}; path=/; max-age=${60 * 60 * 24 * 7}`; // Expires in 7 days
         localStorage.setItem("adminToken", data.token);
-        navigate.push("/admin/");
+        navigate.push("/admin");
       } else {
         setError(data.message || "Invalid credentials");
       }
