@@ -48,13 +48,13 @@ export async function PUT(
       },
       { status: 200 }
     );
-  } catch (error: any) {
+  } catch (error) {
     console.error("Update failed:", error);
 
     return NextResponse.json(
       {
         message: "Something went wrong.",
-        error: error.message,
+        error: error instanceof Error ? error.message : "An unknown error occurred.",
       },
       { status: 500 }
     );

@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {connectDB} from "@/app/lib/mongodb";
-import Batch from "@/app/models/batch.model";
+import Batches from "@/app/models/batch.model";
 
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
@@ -11,7 +11,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     // Extract the dynamic [id] parameter from the URL
       const { id } = await params; 
   
-    const deletedBatch = await Batch.findByIdAndDelete(id);
+    const deletedBatch = await Batches.findByIdAndDelete(id);
    if (!deletedBatch) {
          return NextResponse.json({ message: "Batch not found" }, { status: 404 });
        }
