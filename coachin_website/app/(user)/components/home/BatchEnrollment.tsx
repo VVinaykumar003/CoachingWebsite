@@ -60,7 +60,7 @@ const BatchEnrollment = () => {
         <div>
           <h2 className="text-4xl font-extrabold text-base-100 mb-3">Offline Center Admissions</h2>
           <p className="text-lg text-base-100/70 max-w-2xl">
-            Secure your seat in our upcoming physical batches in Raipur. We provide conceptual, brainstorming classes to develop the required temperament for JEE and NEET.
+            Join our upcoming offline batches in Raipur. Build strong concepts, sharpen your problem-solving skills, and learn Physics & Chemistry with a smarter, more practical approach.
           </p>
         </div>
         <button
