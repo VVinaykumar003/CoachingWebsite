@@ -4,9 +4,13 @@ import React, { useEffect, useRef } from 'react';
 const Hero = () => {
   const carouselRef = useRef<HTMLDivElement>(null);
 
+  // const slides = [
+  //   { desktop: '/banner/banner_1.png', mobile: '/mobile/mobile_1.png' },
+  //   { desktop: '/banner/banner_2.png', mobile: '/mobile/mobile_2.png' },
+  // ];
   const slides = [
-    { desktop: '/banner/banner_1.png', mobile: '/mobile/mobile_1.png' },
-    { desktop: '/banner/banner_2.png', mobile: '/mobile/mobile_2.png' },
+    { desktop: '/banner/frontpage1.webp', mobile: '/mobile/mobile_1.png' },
+    { desktop: '/banner/2ndpage1.webp', mobile: '/mobile/mobile_2.png' },
   ];
 
  
@@ -51,7 +55,7 @@ const Hero = () => {
           <div key={index} className="carousel-item relative w-full">
             <picture className="w-full flex">
               <source media="(max-width: 768px)" srcSet={slide.mobile} />
-              <img src={slide.desktop} className="w-full object-cover" alt={`Slide ${index + 1}`} />
+              <img src={slide.desktop} className="w-full object-contain" alt={`Slide ${index + 1}`} />
             </picture>
           </div>
         ))}

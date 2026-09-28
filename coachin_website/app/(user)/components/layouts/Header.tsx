@@ -32,10 +32,10 @@ const Header = () => {
   return (
     <>
       <div className="bg-brand-gradient text-primary-content text-center py-2 sm:py-2.5 text-xs sm:text-sm font-bold px-2 sm:px-4 tracking-wide shadow-inner flex flex-col lg:flex-row justify-center items-center gap-1 lg:gap-3">
-        <span>&quot;Crack JEE & NEET with Raipur&apos;s Most Transparent Hybrid Coaching.&quot;</span>
+        <span>&quot;Empowering Students Voice in Education.&quot;</span>
         <span className="hidden lg:inline opacity-60">|</span>
         <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3">
-          <a href="tel:+918770459007" className="hover:opacity-80 transition-opacity">📞 8770459007 / 966923800</a>
+          <a href="tel:+918770459007" className="hover:opacity-80 transition-opacity">📞 966923800</a>
           <span className="hidden sm:inline opacity-60">|</span>
           <a href="mailto:kunal@eunoiaeducation.in" className="hover:opacity-80 transition-opacity">✉️ kunal@eunoiaeducation.in</a>
         </div>

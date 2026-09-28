@@ -17,8 +17,9 @@ const Cards = () => {
         {/* Main Content Wrapper */}
         <div className="bg-white/70 backdrop-blur-xl shadow-[0_20px_40px_-15px_rgba(30,27,75,0.05)] border border-white rounded-3xl p-6 md:p-12 overflow-hidden">
           <div className="text-center mb-8 shadow-level-1 pb-6 max-w-3xl mx-auto">
-            <h2 className="text-4xl font-bold mb-4 text-[#1E1B4B]">Master Your Subjects</h2>
-            <p className="text-lg text-base-100/70">Pick the path that aligns with your goals and start building a strong foundation today.</p>
+            <h2 className="text-4xl font-bold mb-2 text-[#1E1B4B]">Master Your Subjects</h2>
+            {/* <p className="text-lg text-base-100/70">Pick the path that aligns with your goals and start building a strong foundation today.</p> */}
+            <p className="text-lg font-semibold tracking-tight "> Strong Concepts. Better Problem Solving. Better Results. — Join Kunal Sir’s Next Batch.</p>
           </div>
           
           {/* Founder's Message & Transparency Timeline */}
@@ -39,9 +40,15 @@ const Cards = () => {
               <h3 className="text-2xl md:text-3xl font-bold mb-5 italic tracking-[-0.01em] leading-[1.4] text-[#1E1B4B]">
                 "Crack JEE & NEET with Raipur's Most Transparent Hybrid Coaching. Join Kunal Sir's Next Batch."
               </h3>
-              <p className="text-base text-base-100/80 leading-relaxed max-w-lg">
+              {/* <p className="text-base text-base-100/80 leading-relaxed max-w-lg">
                 At Eunoia Education, we believe in a <strong>"No Hiding" philosophy</strong>. Education is a transparent partnership between the student, parents, and teacher.
+              </p> */}
+              <p className="text-base text-base-100/80 leading-relaxed max-w-lg">
+                At Eunoia Education, we keep things simple —  <strong>no hidden promises, no confusion, no shortcuts.</strong>
               </p>
+              <p>You’ll always know <strong> what you’re learning, where you stand, and what you need to improve.</strong>
+</p>
+<p>We believe coaching isn’t just about studying from a teacher. It’s about having someone <strong> who guides you, clears your doubts, tracks your progress, and stays with you throughout the journey.</strong></p>
               
               {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-[#E0E7FF] hover:-translate-y-1 hover:shadow-md transition-all duration-300 relative overflow-hidden group">

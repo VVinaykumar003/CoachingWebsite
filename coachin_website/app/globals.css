@@ -184,3 +184,36 @@
 
  
 }
+
+
+@keyframes scroll-testimonials {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.testimonial-track {
+  animation: scroll-testimonials 35s linear infinite;
+  width: max-content;
+}
+
+.testimonial-track.paused {
+  animation-play-state: paused;
+}
+
+@media (max-width: 768px) {
+  .testimonial-track {
+    animation-duration: 30s;
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
