@@ -46,7 +46,8 @@ const ManageTestimonials = () => {
   const handleAddTestimonial = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     
     // Prevent sending an empty file if the user didn't select one
     const imageFile = formData.get('image');
@@ -60,7 +61,7 @@ const ManageTestimonials = () => {
         body: formData,
       });
       if (!res.ok) throw new Error("Failed to add testimonial");
-      e.currentTarget.reset();
+      form.reset();
       closeModal('add_testimonial_modal');
       fetchTestimonials(); // refresh the list
       showSuccess("Testimonial added successfully!");

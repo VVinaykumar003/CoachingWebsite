@@ -156,7 +156,7 @@ const AdminSidebar = () => {
         {navLink('/admin/managecourses', 'ti-books',            'Manage Courses')}
         {navLink('/admin/manageblogs',   'ti-article',          'Manage Blogs')}
         {navLink('/admin/managetestimonial', 'ti-star',         'Manage Testimonials')}
-        {navLink('/admin/managestudent', 'ti-address-book' ,         'Manage Students')}
+        {navLink('/admin/managestudent', 'ti-address-book' ,         'Manage enquiry')}
         {navLink('/admin/managebatches', 'ti-layout-grid' ,         'Manage Batches')}
       </ul>
 

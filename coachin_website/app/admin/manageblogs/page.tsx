@@ -98,9 +98,8 @@ const ManageBlogs = () => {
 
     setIsSubmitting(true);
 
-    const formData = new FormData(
-      e.currentTarget
-    );
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
     const imageFile =
       formData.get("coverImage");
@@ -127,7 +126,7 @@ const ManageBlogs = () => {
         );
       }
 
-      e.currentTarget.reset();
+      form.reset();
 
       closeModal("add_blog_modal");
 
