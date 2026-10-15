@@ -97,8 +97,9 @@ const AdminSidebar = () => {
   const isActive = (path: string) =>
     path === '/admin' ? pathname === path : pathname.startsWith(path);
    const handleLogout = () => {
-    // Clear any admin session/token
+    // Clear any admin session/token from localStorage and cookies
     localStorage.removeItem('adminToken');
+    document.cookie = "adminToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     // Redirect back to the login page
     router.push('/login');
   };
@@ -163,7 +164,7 @@ const AdminSidebar = () => {
       {/* Footer */}
       <div className="border-t border-base-100/8 pt-3 mt-2">
         <button
-          onClick={() => { localStorage.removeItem('adminToken'); router.push('/login'); }}
+          onClick={handleLogout}
           className="flex items-start gap-2.5 w-full  py-2.5 rounded-lg text-sm  transition-colors btn btn-outline btn-error hover:bg-transparent hover:border-error hover:shadow-none"
         >
           {/* <i className="ti ti-logout text-[17px] w-5 text-center bg-black" aria-hidden="true" 

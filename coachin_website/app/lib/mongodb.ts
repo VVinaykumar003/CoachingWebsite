@@ -1,4 +1,12 @@
 import mongoose from "mongoose";
+import dns from "node:dns";
+
+// Ensure reliable DNS resolution for MongoDB Atlas SRV records on Windows/Node environments
+try {
+  dns.setServers(["8.8.8.8", "1.1.1.1", "8.8.4.4"]);
+} catch (e) {
+  // Ignored if custom DNS servers cannot be set in this runtime
+}
 
 let cached = (global as any).mongoose;
 
@@ -18,9 +26,15 @@ export async function connectDB() {
   if (cached.conn) return cached.conn;
 
   if (!cached.promise) {
-    cached.promise = mongoose.connect(uri).then((mongoose) => mongoose);
+    cached.promise = mongoose.connect(uri).then((m) => m);
   }
 
-  cached.conn = await cached.promise;
+  try {
+    cached.conn = await cached.promise;
+  } catch (e) {
+    cached.promise = null;
+    throw e;
+  }
+
   return cached.conn;
-}
+}

@@ -18,7 +18,7 @@ const Footer = () => {
             />
             <p className="text-neutral-content/80 text-base">
               <span className="font-bold text-lg block mb-1">Eunoia Education</span>
-              <span className="italic text-sm">&quot; Where Concepts Become Confidence.&quot;</span>
+              <span className="italic text-sm">&quot; Empowering Students Voice in Education.&quot;</span>
             </p>
             {/* Social Icons */}
             <div className="flex gap-2 mt-4">
@@ -47,7 +47,7 @@ const Footer = () => {
             <h6 className="footer-title opacity-100 text-[#00BCD4] font-extrabold tracking-wide">Student Corner</h6>
             <Link href="/features" className="link link-hover text-white/80 hover:text-white transition-colors">Success Stories</Link>
             {/* <Link href="/features" className="link link-hover text-white/80 hover:text-white transition-colors">Student Results</Link> */}
-            <Link href="/blog" className="link link-hover text-white/80 hover:text-white transition-colors">Study Blog</Link>
+            <Link href="/blogs" className="link link-hover text-white/80 hover:text-white transition-colors">Study Blog</Link>
             {/* <Link href="/courses" className="link link-hover text-white/80 hover:text-white transition-colors">Free Resources</Link> */}
           </nav>
 
@@ -56,7 +56,7 @@ const Footer = () => {
             <h6 className="footer-title opacity-100 text-[#00BCD4] font-extrabold tracking-wide">Support</h6>
             <Link href="/contact" className="link link-hover text-white/80 hover:text-white transition-colors">Contact Us</Link>
             <Link href="/contact" className="link link-hover text-white/80 hover:text-white transition-colors">FAQ</Link>
-            <a href="#" className="link link-hover text-white/80 hover:text-white transition-colors">Terms & Privacy</a>
+            <Link href="/about" className="link link-hover text-white/80 hover:text-white transition-colors">Terms & Rules</Link>
             {/* <a href="#" className="link link-hover text-white/80 hover:text-white transition-colors">Refund Policy</a> */}
           </nav>
 
@@ -66,7 +66,7 @@ const Footer = () => {
             <div className="text-white/80 text-sm space-y-3 mt-1 leading-relaxed">
               {/* <p><strong className="text-white">Founder:</strong> Kunal Madaria<br/>(Physics & Chemistry Expert)</p> */}
               <p>New Rajendra Nagar, behind SBI Bank,<br/>Near RDA Building, Raipur, CG [492001]</p>
-              <p>📞 <a href="tel:+918770459007" className="hover:text-primary transition-colors">8770459007</a> / <a href="tel:+91966923800" className="hover:text-primary transition-colors">966923800</a></p>
+              <p>📞  <a href="tel:+919669238000" className="hover:text-primary transition-colors">9669238000</a></p>
               <p>✉️ <a href="mailto:kunal@eunoiaeducation.in" className="hover:text-primary transition-colors">kunal@eunoiaeducation.in</a></p>
             </div>
           </nav>

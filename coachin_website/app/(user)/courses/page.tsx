@@ -197,9 +197,9 @@ const CoursesContent = () => {
                         {/* {course.price || "₹4,999"} */}
                       </div>
                       <a 
-                        href={course.redirectLink || "#"} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
+                        href={course.redirectLink || "/contact"} 
+                        target={course.redirectLink ? "_blank" : "_self"} 
+                        rel={course.redirectLink ? "noopener noreferrer" : undefined}
                         className="block w-full text-center text-sm border border-indigo-400 py-2.5 rounded-md font-bold text-indigo-600 hover:bg-indigo-50 hover:text-indigo-800 transition-colors"
                       >
                         Explore Course

@@ -11,9 +11,9 @@ export const GET = async (req: NextRequest) => {
         const contacts = await Contact.find().sort({createdAt: -1});
         return NextResponse.json(contacts, {status: 200});
     }
-    catch (error) {
+    catch (error: any) {
         console.error('Error fetching contacts:', error);
-        return NextResponse.json({error: 'Internal Server Error'}, {status: 500});
+        return NextResponse.json({error: error?.message || 'Internal Server Error'}, {status: 500});
     }
 };
 

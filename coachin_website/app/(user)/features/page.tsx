@@ -124,10 +124,10 @@ const Features = () => {
             Join thousands of students who are achieving their dreams with our structured approach.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center w-full">
-            <Link href="/courses" className="btn bg-brand-gradient  btn-lg shadow-lg hover:scale-105 transition-transform px-8">
+            <Link href="/courses" className="btn bg-brand-gradient btn-lg shadow-lg hover:scale-105 transition-transform px-8">
               Explore Courses
             </Link>
-            <a href=" https://youtube.com/@theeunoiaeducation?si=ww24QGtiUsl4pt5_" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-lg text-emerald-50 bg-red-500 hover:scale-105 transition-transform px-8">
+            <a href="https://youtube.com/@theeunoiaeducation?si=ww24QGtiUsl4pt5_" target="_blank" rel="noopener noreferrer" className="btn btn-outline btn-lg text-emerald-50 bg-red-500 hover:scale-105 transition-transform px-8">
               Visit YouTube Channel
             </a>
           </div>
