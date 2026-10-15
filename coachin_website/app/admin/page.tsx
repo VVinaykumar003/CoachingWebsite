@@ -42,10 +42,30 @@ const shortcutConfig: ShortcutConfig[] = [
 ];
 
 const quickActions = [
-  { href: '/admin/managecourses', icon: 'ti-plus', label: 'Manage Courses', primary: true },
-  { href: '/admin/manageblogs', icon: 'ti-article', label: 'Write New Blog', primary: false },
-  { href: '/admin/managebatches', icon: 'ti-layout-grid', label: 'Manage Batches', primary: false },
-  { href: '/admin/managestudent', icon: 'ti-address-book', label: 'Student Enquiries', primary: false },
+  { 
+    href: '/admin/managecourses', 
+    icon: 'ti-books', 
+    label: 'Manage Courses', 
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25' 
+  },
+  { 
+    href: '/admin/manageblogs', 
+    icon: 'ti-article', 
+    label: 'Write New Blog', 
+    badgeColor: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/25' 
+  },
+  { 
+    href: '/admin/managebatches', 
+    icon: 'ti-layout-grid', 
+    label: 'Manage Batches', 
+    badgeColor: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/25' 
+  },
+  { 
+    href: '/admin/managestudent', 
+    icon: 'ti-address-book', 
+    label: 'Student Enquiries', 
+    badgeColor: 'bg-amber-500/15 text-amber-400 border-amber-500/25' 
+  },
 ];
 
 export default function AdminDashboard() {
@@ -177,19 +197,23 @@ export default function AdminDashboard() {
         <p className="text-[11px] uppercase tracking-widest text-base-100/70 font-semibold mb-3">Quick access</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {shortcutConfig.map((s) => (
-            <Link key={s.href} href={s.href}
-              className="bg-brand-gradient rounded-2xl border border-white/[0.08] p-4 flex items-center gap-3 hover:brightness-110 transition-all">
-              <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0"
+            <Link 
+              key={s.href} 
+              href={s.href}
+              className="group bg-brand-gradient rounded-2xl border border-white/[0.08] hover:border-white/25 p-4 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-lg transition-all !text-white hover:!text-white"
+              style={{ color: '#ffffff' }}
+            >
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover:scale-105"
                 style={{ background: s.color, color: s.iconColor }}>
                 <i className={`ti ${s.icon}`} aria-hidden="true" />
               </div>
               <div>
-                <p className="text-[11px] text-white/60">{s.label}</p>
-                <p className="text-sm font-semibold text-white">
+                <p className="text-[11px] text-white/70 group-hover:text-white/90 transition-colors" style={{ color: 'rgba(255,255,255,0.7)' }}>{s.label}</p>
+                <p className="text-sm font-semibold !text-white group-hover:!text-white" style={{ color: '#ffffff' }}>
                   {statsLoading ? '—' : (shortcutValues[s.key] ?? 'Click to manage')}
                 </p>
               </div>
-              <i className="ti ti-chevron-right ml-auto text-white/30 text-sm" aria-hidden="true" />
+              <i className="ti ti-chevron-right ml-auto text-white/30 group-hover:text-white group-hover:translate-x-0.5 text-sm transition-all" />
             </Link>
           ))}
         </div>
@@ -292,15 +316,19 @@ export default function AdminDashboard() {
               <Link
                 key={a.label}
                 href={a.href}
-                className={`flex items-center gap-2.5 w-full px-3 py-2.5 rounded-xl text-xs font-semibold transition-all
-                  ${a.primary
-                    ? 'bg-brand-gradient text-white shadow-brand-glow hover:brightness-110'
-                    : 'text-base-100/80 border border-white/[0.08] hover:bg-white/[0.05] hover:text-white'
-                  }`}
+                className="group flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] border border-white/[0.08] hover:border-white/25 !text-white hover:!text-white transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+                style={{ color: '#ffffff' }}
               >
-                <i className={`ti ${a.icon} text-base`} aria-hidden="true" />
-                {a.label}
-                <i className="ti ti-chevron-right ml-auto text-xs opacity-40" />
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm border shrink-0 ${a.badgeColor} transition-transform group-hover:scale-105`}>
+                  <i className={`ti ${a.icon}`} aria-hidden="true" />
+                </div>
+                <span 
+                  className="text-xs font-semibold !text-white group-hover:!text-white transition-colors"
+                  style={{ color: '#ffffff' }}
+                >
+                  {a.label}
+                </span>
+                <i className="ti ti-chevron-right ml-auto text-xs text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
               </Link>
             ))}
           </div>
