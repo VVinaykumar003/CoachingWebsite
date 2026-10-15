@@ -117,7 +117,8 @@ const Login = () => {
                 <input 
                   type="text" 
                   placeholder="e.g. ADM-2026" 
-                  className="w-full bg-white text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl pl-10 pr-4 py-2.5 text-sm font-medium focus:bg-white focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs" 
+                  className="w-full !bg-white !text-black placeholder:text-slate-400 border border-slate-300 rounded-xl pl-10 pr-4 py-3 text-sm font-semibold focus:!bg-white focus:!text-black focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:#000000]" 
+                  style={{ backgroundColor: '#ffffff', color: '#000000' }}
                   value={adminId}
                   onChange={(e) => setAdminId(e.target.value)}
                   required 
@@ -139,7 +140,8 @@ const Login = () => {
                 <input 
                   type={showPassword ? "text" : "password"} 
                   placeholder="Enter your password" 
-                  className="w-full bg-white text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl pl-10 pr-11 py-2.5 text-sm font-medium focus:bg-white focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs" 
+                  className="w-full !bg-white !text-black placeholder:text-slate-400 border border-slate-300 rounded-xl pl-10 pr-11 py-3 text-sm font-semibold focus:!bg-white focus:!text-black focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:#000000]" 
+                  style={{ backgroundColor: '#ffffff', color: '#000000' }}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required 
@@ -239,7 +241,8 @@ const Login = () => {
               <input 
                 type="text" 
                 placeholder="Enter Admin ID" 
-                className="w-full bg-white text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:bg-white focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs" 
+                className="w-full !bg-white !text-black placeholder:text-slate-400 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:!bg-white focus:!text-black focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:#000000]" 
+                style={{ backgroundColor: '#ffffff', color: '#000000' }}
                 value={adminId}
                 onChange={(e) => setAdminId(e.target.value)}
                 required 
@@ -253,7 +256,8 @@ const Login = () => {
               <input 
                 type="password" 
                 placeholder="Enter new password" 
-                className="w-full bg-white text-slate-900 placeholder:text-slate-400 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:bg-white focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs" 
+                className="w-full !bg-white !text-black placeholder:text-slate-400 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm font-semibold focus:!bg-white focus:!text-black focus:outline-none focus:border-[#1A237E] focus:ring-2 focus:ring-[#1A237E]/15 transition-all shadow-xs [&:-webkit-autofill]:shadow-[0_0_0_1000px_white_inset] [&:-webkit-autofill]:[-webkit-text-fill-color:#000000]" 
+                style={{ backgroundColor: '#ffffff', color: '#000000' }}
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
                 required 
