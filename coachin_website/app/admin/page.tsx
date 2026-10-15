@@ -201,7 +201,7 @@ export default function AdminDashboard() {
               key={s.href} 
               href={s.href}
               className="group bg-brand-gradient rounded-2xl border border-white/[0.08] hover:border-white/25 p-4 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-lg transition-all !text-white hover:!text-white"
-              style={{ color: '#ffffff' }}
+              style={{ color: '#080808ff' }}
             >
               <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover:scale-105"
                 style={{ background: s.color, color: s.iconColor }}>
@@ -317,14 +317,14 @@ export default function AdminDashboard() {
                 key={a.label}
                 href={a.href}
                 className="group flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] border border-white/[0.08] hover:border-white/25 !text-white hover:!text-white transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
-                style={{ color: '#ffffff' }}
+                style={{ color: '#000000ff' }}
               >
                 <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm border shrink-0 ${a.badgeColor} transition-transform group-hover:scale-105`}>
                   <i className={`ti ${a.icon}`} aria-hidden="true" />
                 </div>
                 <span 
-                  className="text-xs font-semibold !text-white group-hover:!text-white transition-colors"
-                  style={{ color: '#ffffff' }}
+                  className="text-xs font-semibold !text-black group-hover:!text-gray-500 transition-colors"
+                  style={{ color: '#000000' }}
                 >
                   {a.label}
                 </span>
