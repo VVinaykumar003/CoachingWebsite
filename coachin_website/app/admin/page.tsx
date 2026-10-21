@@ -14,13 +14,16 @@ interface StatData {
 }
 
 interface RegistrationData {
-  initials: string;
-  fullName: string;
-  email: string;
-  course: string;
-  batch: string;
-  createdAt: string;
-  status: string;
+  _id?: string;
+  initials?: string;
+  fullName?: string;
+  email?: string;
+  whatsapp?: string;
+  course?: string;
+  batch?: string;
+  message?: string;
+  createdAt?: string;
+  status?: string;
 }
 
 interface ShortcutConfig {
@@ -33,23 +36,37 @@ interface ShortcutConfig {
 }
 
 const shortcutConfig: ShortcutConfig[] = [
-  { key: 'courses',      href: '/admin/managecourses',     icon: 'ti-books',   color: 'rgba(29,158,117,0.15)',  iconColor: '#999999', label: 'Courses' },
-  { key: 'blogs',        href: '/admin/manageblogs',       icon: 'ti-article', color: 'rgba(99,102,241,0.15)',  iconColor: '#ffffff', label: 'Blogs' },
-  { key: 'testimonials', href: '/admin/managetestimonial', icon: 'ti-star',    color: 'rgba(186,117,23,0.15)',  iconColor: '#ffffff', label: 'Testimonials' },
+  { key: 'courses',      href: '/admin/managecourses',     icon: 'ti-books',   color: 'rgba(29,158,117,0.15)',  iconColor: '#5DCAA5', label: 'Courses' },
+  { key: 'blogs',        href: '/admin/manageblogs',       icon: 'ti-article', color: 'rgba(99,102,241,0.15)',  iconColor: '#818CF8', label: 'Blogs' },
+  { key: 'testimonials', href: '/admin/managetestimonial', icon: 'ti-star',    color: 'rgba(186,117,23,0.15)',  iconColor: '#FAC775', label: 'Testimonials' },
 ];
 
 const quickActions = [
-  { icon: 'ti-plus', label: 'New course', primary: true },
-  { icon: 'ti-speakerphone', label: 'Announcement', primary: false },
-  { icon: 'ti-file-analytics', label: 'Generate report', primary: false },
-  { icon: 'ti-users-plus', label: 'Add batch', primary: false },
+  { 
+    href: '/admin/managecourses', 
+    icon: 'ti-books', 
+    label: 'Manage Courses', 
+    badgeColor: 'bg-emerald-500/15 text-emerald-400 border-emerald-500/25' 
+  },
+  { 
+    href: '/admin/manageblogs', 
+    icon: 'ti-article', 
+    label: 'Write New Blog', 
+    badgeColor: 'bg-indigo-500/15 text-indigo-400 border-indigo-500/25' 
+  },
+  { 
+    href: '/admin/managebatches', 
+    icon: 'ti-layout-grid', 
+    label: 'Manage Batches', 
+    badgeColor: 'bg-cyan-500/15 text-cyan-400 border-cyan-500/25' 
+  },
+  { 
+    href: '/admin/managestudent', 
+    icon: 'ti-address-book', 
+    label: 'Student Enquiries', 
+    badgeColor: 'bg-amber-500/15 text-amber-400 border-amber-500/25' 
+  },
 ];
-
-const statusStyles: Record<string, string> = {
-  Active:  'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20',
-  Pending: 'bg-amber-500/10  text-amber-400  border border-amber-500/20',
-  Dropped: 'bg-red-500/10    text-red-400    border border-red-500/20',
-};
 
 export default function AdminDashboard() {
   const [dashboardStats, setDashboardStats] = useState<StatData[]>([]);
@@ -68,8 +85,7 @@ export default function AdminDashboard() {
       setStatsError(null);
       try {
         const token = localStorage.getItem('adminToken');
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || '';
-        const response = await fetch(`${apiUrl}/api/admin/dashboard`, {
+        const response = await fetch('/api/admin/dashboard', {
           headers: {
             'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json',
@@ -128,11 +144,11 @@ export default function AdminDashboard() {
   return (
     <div className="space-y-6 p-1">
 
-      {/* Stat cards
+      {/* Overview Stat Cards */}
       <div>
-        <p className="text-[11px] uppercase tracking-widest text-base-100 font-medium mb-3">Overview</p>
+        <p className="text-[11px] uppercase tracking-widest text-base-100/70 font-semibold mb-3">Overview</p>
         {statsError && (
-          <p className="text-xs text-error mb-3">Warning: Could not load live data. ({statsError})</p>
+          <p className="text-xs text-error mb-3">Notice: ({statsError})</p>
         )}
 
         {statsLoading ? (
@@ -148,7 +164,7 @@ export default function AdminDashboard() {
           </div>
         ) : dashboardStats.length === 0 ? (
           <div className="bg-brand-gradient rounded-2xl border border-white/[0.08] p-6 text-center">
-            <p className="text-xs text-base-100/60">No overview data available right now.</p>
+            <p className="text-xs text-white/60">No overview data available right now.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -158,14 +174,14 @@ export default function AdminDashboard() {
                   style={{ background: s.color, color: s.iconColor }}>
                   <i className={`ti ${s.icon}`} aria-hidden="true" />
                 </div>
-                <p className="text-[11px] text-base-content mb-1">{s.label}</p>
-                <p className="text-2xl font-medium text-base-content mb-2 leading-none">{s.value}</p>
+                <p className="text-[11px] text-white/70 mb-1">{s.label}</p>
+                <p className="text-2xl font-bold text-white mb-2 leading-none">{s.value}</p>
                 {s.meta?.length > 0 && (
                   <div className="border-t border-white/[0.08] pt-2 space-y-1">
                     {s.meta.map(([k, v]) => (
                       <div key={k} className="flex justify-between text-[11px]">
-                        <span className="text-base-content">{k}</span>
-                        <span className="text-base-content">{v}</span>
+                        <span className="text-white/60">{k}</span>
+                        <span className="text-white font-medium">{v}</span>
                       </div>
                     ))}
                   </div>
@@ -174,90 +190,113 @@ export default function AdminDashboard() {
             ))}
           </div>
         )}
-      </div> */}
+      </div>
 
       {/* Shortcuts */}
       <div>
-        <p className="text-[11px] uppercase tracking-widest text-base-100/80 font-medium mb-3">Quick access</p>
+        <p className="text-[11px] uppercase tracking-widest text-base-100/70 font-semibold mb-3">Quick access</p>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {shortcutConfig.map((s) => (
-            <Link key={s.href} href={s.href}
-              className="bg-brand-gradient rounded-2xl border border-white/[0.08] rounded-xl p-3 flex items-center gap-3 hover:bg-[#222840] transition-colors">
-              <div className="w-8 h-8 rounded-lg flex items-center justify-center text-base flex-shrink-0"
+            <Link 
+              key={s.href} 
+              href={s.href}
+              className="group bg-brand-gradient rounded-2xl border border-white/[0.08] hover:border-white/25 p-4 flex items-center gap-3 hover:-translate-y-0.5 hover:shadow-lg transition-all !text-white hover:!text-white"
+              style={{ color: '#080808ff' }}
+            >
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center text-lg flex-shrink-0 transition-transform group-hover:scale-105"
                 style={{ background: s.color, color: s.iconColor }}>
                 <i className={`ti ${s.icon}`} aria-hidden="true" />
               </div>
               <div>
-                <p className="text-[11px] text-white/40">{s.label}</p>
-                <p className="text-sm font-medium text-slate-100">
-                  {statsLoading ? '—' : (shortcutValues[s.key] ?? 'Click to view')}
+                <p className="text-[11px] text-white/70 group-hover:text-white/90 transition-colors" style={{ color: 'rgba(255,255,255,0.7)' }}>{s.label}</p>
+                <p className="text-sm font-semibold !text-white group-hover:!text-white" style={{ color: '#ffffff' }}>
+                  {statsLoading ? '—' : (shortcutValues[s.key] ?? 'Click to manage')}
                 </p>
               </div>
-              <i className="ti ti-chevron-right ml-auto text-white/20 text-sm" aria-hidden="true" />
+              <i className="ti ti-chevron-right ml-auto text-white/30 group-hover:text-white group-hover:translate-x-0.5 text-sm transition-all" />
             </Link>
           ))}
         </div>
       </div>
 
       {/* Table + Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-        <div className="bg-base-content rounded-2xl border border-base-100 lg:col-span-2 overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
+        {/* Recent enquiries */}
+        <div className="bg-base-content rounded-2xl border border-white/[0.08] lg:col-span-2 overflow-hidden shadow-level-1">
           <div className="flex justify-between items-center px-4 py-3 border-b bg-brand-gradient border-white/[0.08]">
-            <span className="text-sm font-medium text-slate-100">Recent registrations</span>
-            <button className="text-[11px] text-indigo-400/80">View all</button>
+            <span className="text-sm font-semibold text-white">Recent Student Enquiries</span>
+            <Link href="/admin/managestudent" className="text-[11px] text-indigo-300 hover:text-white transition-colors">
+              View all
+            </Link>
           </div>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>
-                <tr className="text-[11px] text-base-100/80 font-medium border-b border-base-100/10">
-                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Student</th>
-                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Course</th>
-                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Batch</th>
-                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Date</th>
-                  <th className="text-left px-4 py-2.5 border-b border-white/[0.06]">Status</th>
+                <tr className="text-[11px] text-base-100/70 font-medium border-b border-white/[0.06] bg-white/[0.01]">
+                  <th className="text-left px-4 py-2.5">Student</th>
+                  <th className="text-left px-4 py-2.5">Course</th>
+                  <th className="text-left px-4 py-2.5">WhatsApp</th>
+                  <th className="text-left px-4 py-2.5">Date</th>
                 </tr>
               </thead>
               <tbody>
                 {contactLoading ? (
                   [0, 1, 2].map((i) => (
                     <tr key={i} className="border-b border-white/[0.05] last:border-none">
-                      <td className="px-4 py-2.5" colSpan={5}>
+                      <td className="px-4 py-3" colSpan={4}>
                         <div className="h-4 w-full bg-white/5 rounded animate-pulse" />
                       </td>
                     </tr>
                   ))
                 ) : contactError ? (
                   <tr>
-                    <td className="px-4 py-4 text-xs text-error" colSpan={5}>
-                      Could not load registrations. ({contactError})
+                    <td className="px-4 py-6 text-xs text-error text-center" colSpan={4}>
+                      Could not load enquiries. ({contactError})
                     </td>
                   </tr>
                 ) : recentRegistrations.length === 0 ? (
                   <tr>
-                    <td className="px-4 py-4 text-xs text-base-300/60 text-center" colSpan={5}>
-                      No registrations yet.
+                    <td className="px-4 py-8 text-xs text-base-300/60 text-center" colSpan={4}>
+                      No enquiries yet.
                     </td>
                   </tr>
                 ) : (
-                  recentRegistrations.map((r) => (
-                    <tr key={r.email} className="border-b border-white/[0.05] last:border-none hover:bg-white/[0.02]">
-                      <td className="px-4 py-2.5">
-                        <div className="flex items-center gap-2">
-                          <div className="w-7 h-7 rounded-full bg-indigo-500/20 text-base-300 flex items-center justify-center text-[10px] font-medium flex-shrink-0">
-                            {r.initials || r.fullName?.slice(0, 2)?.toUpperCase() || '--'}
+                  recentRegistrations.slice(0, 5).map((r, i) => (
+                    <tr key={r._id || r.email || i} className="border-b border-white/[0.05] last:border-none hover:bg-white/[0.02] transition-colors">
+                      <td className="px-4 py-3">
+                        <div className="flex items-center gap-2.5">
+                          <div className="w-7 h-7 rounded-full bg-indigo-500/20 text-indigo-300 flex items-center justify-center text-[10px] font-bold flex-shrink-0">
+                            {r.fullName?.slice(0, 2)?.toUpperCase() || 'ST'}
                           </div>
                           <div>
-                            <p className="text-xs font-medium text-base-300">{r.fullName || '—'}</p>
+                            <p className="text-xs font-medium text-base-100">{r.fullName || 'Anonymous'}</p>
                           </div>
                         </div>
                       </td>
-                      <td className="px-4 py-2.5 text-xs text-base-300">{r.course || '—'}</td>
-                      <td className="px-4 py-2.5 text-xs text-base-300">{r.batch || '—'}</td>
-                      <td className="px-4 py-2.5 text-xs text-base-300">{r.createdAt || '—'}</td>
-                      <td className="px-4 py-2.5">
-                        <span className={`text-[10px] font-medium px-2 py-1 rounded-full ${statusStyles[r.status] || 'bg-gray-500/10 text-gray-400 border border-gray-500/20'}`}>
-                          {r.status || 'Unknown'}
+                      <td className="px-4 py-3">
+                        <span className="text-[11px] bg-primary/15 text-primary px-2 py-0.5 rounded-full font-medium">
+                          {r.course || 'General'}
                         </span>
+                      </td>
+                      <td className="px-4 py-3">
+                        {r.whatsapp ? (
+                          <a
+                            href={`https://wa.me/${r.whatsapp.replace(/[^0-9]/g, '')}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1 text-xs text-emerald-400 hover:text-emerald-300 transition-colors"
+                          >
+                            <i className="ti ti-brand-whatsapp text-sm" />
+                            {r.whatsapp}
+                          </a>
+                        ) : (
+                          <span className="text-xs text-base-100/50">—</span>
+                        )}
+                      </td>
+                      <td className="px-4 py-3 text-xs text-base-100/60 whitespace-nowrap">
+                        {r.createdAt
+                          ? new Date(r.createdAt).toLocaleDateString('en-IN', { month: 'short', day: 'numeric', year: 'numeric' })
+                          : 'Recent'}
                       </td>
                     </tr>
                   ))
@@ -267,24 +306,33 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* <div className="bg-brand-content rounded-2xl border border-base-100 ">
-          <div className="px-4 py-3 border-b border-white/[0.08] bg-brand-gradient  rounded-t-2xl">
-            <span className="text-sm font-medium text-slate-100 ">Quick actions</span>
+        {/* Quick actions panel */}
+        <div className="bg-base-content rounded-2xl border border-white/[0.08] overflow-hidden shadow-level-1 flex flex-col">
+          <div className="px-4 py-3 border-b border-white/[0.08] bg-brand-gradient">
+            <span className="text-sm font-semibold text-white">Quick Actions</span>
           </div>
-          <div className="p-3 flex flex-col gap-2">
+          <div className="p-3 flex flex-col gap-2 flex-1 justify-center">
             {quickActions.map((a) => (
-              <button key={a.label}
-                className={`flex items-center gap-2 w-full px-3 py-2.5 rounded-lg text-xs font-medium transition-colors
-                  ${a.primary
-                    ? 'bg-indigo-500/20 text-base-300 hover:bg-indigo-500/30'
-                    : 'text-base-100/50 border border-white/[0.08] hover:bg-white/[0.05] hover:text-base-100/75'
-                  }`}>
-                <i className={`ti ${a.icon} text-[15px]`} aria-hidden="true" />
-                {a.label}
-              </button>
+              <Link
+                key={a.label}
+                href={a.href}
+                className="group flex items-center gap-3 w-full px-3.5 py-2.5 rounded-xl bg-white/[0.04] hover:bg-white/[0.12] border border-white/[0.08] hover:border-white/25 !text-white hover:!text-white transition-all duration-200 hover:-translate-y-0.5 shadow-xs"
+                style={{ color: '#000000ff' }}
+              >
+                <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm border shrink-0 ${a.badgeColor} transition-transform group-hover:scale-105`}>
+                  <i className={`ti ${a.icon}`} aria-hidden="true" />
+                </div>
+                <span 
+                  className="text-xs font-semibold !text-black group-hover:!text-gray-500 transition-colors"
+                  style={{ color: '#000000' }}
+                >
+                  {a.label}
+                </span>
+                <i className="ti ti-chevron-right ml-auto text-xs text-white/40 group-hover:text-white group-hover:translate-x-0.5 transition-all" />
+              </Link>
             ))}
           </div>
-        </div> */}
+        </div>
       </div>
 
     </div>

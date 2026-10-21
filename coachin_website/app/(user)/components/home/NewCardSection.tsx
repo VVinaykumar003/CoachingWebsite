@@ -154,10 +154,10 @@ const NewCardSection = () => {
                         </ul>
 
                         <a
-                          href={course.redirectLink || course.externalLink || '#'}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="mt-auto btn border-none bg-brand-gradient text-white w-full shadow-brand-glow hover:shadow-[0_0_20px_rgba(0,188,212,0.7)] min-h-10 h-10"
+                          href={course.redirectLink || course.externalLink || '/contact'}
+                          target={course.redirectLink || course.externalLink ? '_blank' : '_self'}
+                          rel={course.redirectLink || course.externalLink ? 'noopener noreferrer' : undefined}
+                          className="mt-auto btn border-none bg-brand-gradient text-white w-full shadow-brand-glow hover:shadow-[0_0_20px_rgba(0,188,212,0.7)] min-h-10 h-10 flex items-center justify-center font-bold"
                         >
                           Enroll Now
                         </a>
