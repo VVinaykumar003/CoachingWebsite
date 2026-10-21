@@ -51,7 +51,8 @@ const ManageCourses = () => {
   const handleAddCourse = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
     setIsSubmitting(true);
-    const formData = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const formData = new FormData(form);
     
     // Prevent sending an empty file if the user didn't select one
     const thumbnailFile = formData.get('thumbnail');
@@ -69,7 +70,7 @@ const ManageCourses = () => {
         console.error("Server error details:", errorData);
         throw new Error(`Failed to add course. Server responded with status ${res.status}.`);
       }
-      e.currentTarget.reset();
+      form.reset();
       setIsOtherCategoryAdd(false);
       closeModal('add_course_modal');
       fetchCourses(); // refresh the list
