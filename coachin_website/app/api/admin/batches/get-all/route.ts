@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/app/lib/mongodb';
 
-import Batches from '../../../../models/Batch.model';
+import Batches from '@/app/models/batch.model';
 
 
 
