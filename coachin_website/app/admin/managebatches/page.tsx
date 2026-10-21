@@ -18,6 +18,24 @@ const emptyForm: BatchForm = {
   timing: "",
 };
 
+const parseTiming = (timing: string) => {
+  const match = timing.match(
+    /^\s*(\d{1,2})(?::([0-5]\d))?\s*(AM|PM)\s*(?:–|-|to)\s*(\d{1,2})(?::([0-5]\d))?\s*(AM|PM)\s*$/i
+  );
+
+  if (!match) return null;
+
+  return {
+    startTime: `${match[1].padStart(2, "0")}:${match[2] || "00"}`,
+    startPeriod: match[3].toUpperCase(),
+    endTime: `${match[4].padStart(2, "0")}:${match[5] || "00"}`,
+    endPeriod: match[6].toUpperCase(),
+  };
+};
+
+const isValidTime = (time: string) =>
+  /^(0?[1-9]|1[0-2]):[0-5]\d$/.test(time);
+
 export default function ManageBatchesPage() {
   const [batches, setBatches] = useState([] as Batch[]);
   const [loading, setLoading] = useState(true);
@@ -28,6 +46,11 @@ export default function ManageBatchesPage() {
   const [modalOpen, setModalOpen] = useState(false);
   const [editingBatch, setEditingBatch] = useState(null as Batch | null);
   const [form, setForm] = useState(emptyForm as BatchForm);
+  const [startTime, setStartTime] = useState("");
+  const [endTime, setEndTime] = useState("");
+  const [startPeriod, setStartPeriod] = useState("AM");
+  const [endPeriod, setEndPeriod] = useState("PM");
+  const [structuredTiming, setStructuredTiming] = useState(true);
   const [error, setError] = useState("");
   const [batchToDelete, setBatchToDelete] = useState(null as string | null);
   const [successMessage, setSuccessMessage] = useState("");
@@ -52,11 +75,17 @@ export default function ManageBatchesPage() {
   const openCreate = () => {
     setEditingBatch(null);
     setForm(emptyForm);
+    setStartTime("");
+    setEndTime("");
+    setStartPeriod("AM");
+    setEndPeriod("PM");
+    setStructuredTiming(true);
     setError("");
     setModalOpen(true);
   };
 
   const openEdit = (batch: Batch) => {
+    const parsedTiming = parseTiming(batch.timing);
     setEditingBatch(batch);
     setForm({
       batchName: batch.batchName,
@@ -64,6 +93,11 @@ export default function ManageBatchesPage() {
       startingDate: batch.startingDate ? new Date(batch.startingDate).toISOString().split('T')[0] : "",
       timing: batch.timing,
     });
+    setStartTime(parsedTiming?.startTime || "");
+    setEndTime(parsedTiming?.endTime || "");
+    setStartPeriod(parsedTiming?.startPeriod || "AM");
+    setEndPeriod(parsedTiming?.endPeriod || "PM");
+    setStructuredTiming(Boolean(parsedTiming));
     setError("");
     setModalOpen(true);
   };
@@ -72,6 +106,11 @@ export default function ManageBatchesPage() {
     setModalOpen(false);
     setEditingBatch(null);
     setForm(emptyForm);
+    setStartTime("");
+    setEndTime("");
+    setStartPeriod("AM");
+    setEndPeriod("PM");
+    setStructuredTiming(true);
     setError("");
   };
 
@@ -97,8 +136,17 @@ export default function ManageBatchesPage() {
   };
 
   const handleSubmit = async () => {
-    if (!form.batchName || !form.timing || !form.startingDate || !form.batchSize) {
+    const timing = structuredTiming
+      ? `${startTime} ${startPeriod} – ${endTime} ${endPeriod}`
+      : form.timing;
+
+    if (!form.batchName || !timing || !form.startingDate || !form.batchSize) {
       setError("All fields are required.");
+      return;
+    }
+
+    if (structuredTiming && (!isValidTime(startTime) || !isValidTime(endTime))) {
+      setError("Enter a valid start and end time in HH:MM format.");
       return;
     }
 
@@ -113,7 +161,7 @@ export default function ManageBatchesPage() {
       const res = await fetch(url, {
         method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, timing }),
       });
 
       if (!res.ok) throw new Error("Request failed");
@@ -295,13 +343,62 @@ export default function ManageBatchesPage() {
 
               <div className="space-y-1">
                 <label className="text-[11px] text-base-100/70 uppercase tracking-wider font-semibold">Timing</label>
-                <input
-                  name="timing"
-                  value={form.timing}
-                  onChange={handleChange}
-                  placeholder="e.g. 8:00 AM – 2:00 PM"
-                  className="w-full bg-white/[0.03] border border-white/[0.1] rounded-lg px-3 py-2.5 text-sm text-base-100 placeholder:text-base-100/30 focus:outline-none focus:border-[#00BCD4]/50 focus:bg-white/[0.05] transition-colors"
-                />
+                {structuredTiming ? (
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    {[
+                      {
+                        label: "From",
+                        name: "startTime",
+                        time: startTime,
+                        setTime: setStartTime,
+                        period: startPeriod,
+                        setPeriod: setStartPeriod,
+                      },
+                      {
+                        label: "To",
+                        name: "endTime",
+                        time: endTime,
+                        setTime: setEndTime,
+                        period: endPeriod,
+                        setPeriod: setEndPeriod,
+                      },
+                    ].map(({ label, name, time, setTime, period, setPeriod }) => (
+                      <div key={name} className="space-y-1">
+                        <label htmlFor={name} className="text-[11px] text-base-100/50 font-semibold">{label}</label>
+                        <div className="flex gap-2">
+                          <input
+                            id={name}
+                            type="text"
+                            inputMode="numeric"
+                            maxLength={5}
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            placeholder="HH:MM"
+                            aria-label={`${label} time (hour and minute)`}
+                            className="min-w-0 flex-1 bg-white/[0.03] border border-white/[0.1] rounded-lg px-3 py-2.5 text-sm text-base-100 placeholder:text-base-100/30 focus:outline-none focus:border-[#00BCD4]/50 focus:bg-white/[0.05] transition-colors"
+                          />
+                          <select
+                            value={period}
+                            onChange={(e) => setPeriod(e.target.value)}
+                            aria-label={`${label} AM or PM`}
+                            className="w-20 bg-base-content border border-white/[0.1] rounded-lg px-2 py-2.5 text-sm text-base-100 focus:outline-none focus:border-[#00BCD4]/50"
+                          >
+                            <option value="AM">AM</option>
+                            <option value="PM">PM</option>
+                          </select>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <input
+                    name="timing"
+                    value={form.timing}
+                    onChange={handleChange}
+                    placeholder="e.g. 8:00 AM – 2:00 PM"
+                    className="w-full bg-white/[0.03] border border-white/[0.1] rounded-lg px-3 py-2.5 text-sm text-base-100 placeholder:text-base-100/30 focus:outline-none focus:border-[#00BCD4]/50 focus:bg-white/[0.05] transition-colors"
+                  />
+                )}
               </div>
 
               <div className="space-y-1">

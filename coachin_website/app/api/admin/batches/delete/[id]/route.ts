@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import {connectDB} from "@/app/lib/mongodb";
-import Batches from '../../../../../models/batch.model';
+import Batches from '../../../../../models/Batch.model';
 
 
 export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
