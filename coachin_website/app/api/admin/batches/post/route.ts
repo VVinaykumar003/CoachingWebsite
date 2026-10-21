@@ -26,7 +26,7 @@ export async function POST(request: NextRequest) {
 
     await newBatch.save();
     return NextResponse.json({ success: true, batch: newBatch }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating batch:', error);
     return NextResponse.json({ error: 'Failed to create a new batch' }, { status: 500 });
   }

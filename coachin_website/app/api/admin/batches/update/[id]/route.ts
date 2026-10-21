@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { connectDB } from "@/app/lib/mongodb";
 import Batches from "@/app/models/batch.model";
 
-
 export async function PUT(
   request: NextRequest,
   context: {
