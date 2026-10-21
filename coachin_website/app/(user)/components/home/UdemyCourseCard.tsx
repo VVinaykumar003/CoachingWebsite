@@ -77,10 +77,10 @@ const UdemyCourseCard = () => {
                 
                 <div className="mt-auto pt-4 w-full">
                   <a 
-                    href={course.redirectLink || "#"} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="btn btn-primary bg-grad w-full shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300"
+                    href={course.redirectLink || "/contact"} 
+                    target={course.redirectLink ? "_blank" : "_self"} 
+                    rel={course.redirectLink ? "noopener noreferrer" : undefined} 
+                    className="btn btn-primary bg-grad w-full shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300 font-bold"
                     onClick={(e) => e.stopPropagation()}
                   >
                     Explore Course
@@ -109,10 +109,10 @@ const UdemyCourseCard = () => {
                 </div>
                 <div className="mt-6 shrink-0 w-full">
                   <a 
-                    href={course.redirectLink || "#"} 
-                    target="_blank" 
-                    rel="noopener noreferrer" 
-                    className="btn btn-primary w-full shadow-sm hover:shadow-md transition-all duration-300"
+                    href={course.redirectLink || "/contact"} 
+                    target={course.redirectLink ? "_blank" : "_self"} 
+                    rel={course.redirectLink ? "noopener noreferrer" : undefined} 
+                    className="btn btn-primary w-full shadow-sm hover:shadow-md transition-all duration-300 font-bold"
                     onClick={(e) => e.stopPropagation()}
                   >
                     Explore Course

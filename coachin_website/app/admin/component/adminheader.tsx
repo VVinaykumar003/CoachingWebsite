@@ -8,8 +8,9 @@ const AdminHeader = () => {
   const router = useRouter();
 
   const handleLogout = () => {
-    // Clear the secure admin token
+    // Clear the secure admin token from localStorage and cookies
     localStorage.removeItem('adminToken');
+    document.cookie = "adminToken=; path=/; max-age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT";
     // Redirect back to the login page
     router.push('/login');
   };

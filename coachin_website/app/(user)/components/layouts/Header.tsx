@@ -35,7 +35,7 @@ const Header = () => {
         <span>&quot;Empowering Students Voice in Education.&quot;</span>
         <span className="hidden lg:inline opacity-60">|</span>
         <div className="flex flex-wrap justify-center items-center gap-2 sm:gap-3">
-          <a href="tel:+918770459007" className="hover:opacity-80 transition-opacity">📞 966923800</a>
+          <a href="tel:+919669238000" className="hover:opacity-80 transition-opacity">📞 9669238000</a>
           <span className="hidden sm:inline opacity-60">|</span>
           <a href="mailto:kunal@eunoiaeducation.in" className="hover:opacity-80 transition-opacity">✉️ kunal@eunoiaeducation.in</a>
         </div>
@@ -61,14 +61,6 @@ const Header = () => {
         <li><Link href="/about" className={navLinkStyle} onClick={blurActiveElement}>About</Link></li>
         <li>
           <Link href="/courses" className={navLinkStyle} onClick={blurActiveElement}>Courses</Link>
-          {/* <details id="courses-desktop-dropdown">
-            <summary className={navLinkStyle}>Courses</summary>
-            <ul className="p-2 bg-base-100 shadow-xl rounded-box w-48 z-10 border border-base-200">
-              <li><Link href="/courses?category=Physics" className={navLinkStyle} onClick={closeDropdown}>Physics</Link></li>
-              <li><Link href="/courses?category=Chemistry" className={navLinkStyle} onClick={closeDropdown}>Chemistry</Link></li>
-              <li><Link href="/courses?category=Mathematics" className={navLinkStyle} onClick={closeDropdown}>Mathematics</Link></li>
-            </ul>
-          </details> */}
         </li>
         <li><Link href="/features" className={navLinkStyle} onClick={blurActiveElement}>Features</Link></li>
         <li><Link href="/blogs" className={navLinkStyle} onClick={blurActiveElement}>Blog</Link></li>
@@ -76,8 +68,7 @@ const Header = () => {
       </ul>
     </div>
     <div className="navbar-end gap-2 pr-2">
-      {/* <button className="btn btn-ghost hidden sm:inline-flex" onClick={handleLoginClick}>Log In</button> */}
-      <button className="btn btn-sm md:btn-md bg-brand-gradient  hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300">Enroll Now</button>
+      <Link href="/contact" className="btn btn-sm md:btn-md bg-brand-gradient text-white hover:-translate-y-1 hover:shadow-lg hover:shadow-primary/50 transition-all duration-300 font-bold border-none" onClick={blurActiveElement}>Enroll Now</Link>
     </div>
   </div>
 
@@ -87,17 +78,13 @@ const Header = () => {
       <li><Link href="/about" className={navLinkStyle} onClick={closeMenu}>About</Link></li>
       <li>
          <Link href="/courses" className={navLinkStyle} onClick={closeMenu}>Courses</Link>
-
-        {/* <button className="pointer-events-none font-semibold text-base-content/50">Courses</button>
-        <ul>
-          <li><Link href="/courses?category=Physics" className={`${navLinkStyle} py-2`} onClick={closeMenu}>Physics</Link></li>
-          <li><Link href="/courses?category=Chemistry" className={`${navLinkStyle} py-2`} onClick={closeMenu}>Chemistry</Link></li>
-          <li><Link href="/courses?category=Mathematics" className={`${navLinkStyle} py-2`} onClick={closeMenu}>Mathematics</Link></li>
-        </ul> */}
       </li>
       <li><Link href="/features" className={navLinkStyle} onClick={closeMenu}>Features</Link></li>
-      <li><Link href="/blog" className={navLinkStyle} onClick={closeMenu}>Blog</Link></li>
+      <li><Link href="/blogs" className={navLinkStyle} onClick={closeMenu}>Blog</Link></li>
       <li><Link href="/contact" className={navLinkStyle} onClick={closeMenu}>Contact</Link></li>
+      <li className="mt-2">
+        <Link href="/contact" className="btn btn-sm bg-brand-gradient text-white w-full border-none font-bold" onClick={closeMenu}>Enroll Now</Link>
+      </li>
       {/* <li className="mt-2 sm:hidden">
         <button 
           className="btn btn-outline btn-primary btn-sm w-full" 
