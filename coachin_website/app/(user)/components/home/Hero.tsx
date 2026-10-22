@@ -9,8 +9,8 @@ const Hero = () => {
   //   { desktop: '/banner/banner_2.png', mobile: '/mobile/mobile_2.png' },
   // ];
   const slides = [
-    { desktop: '/banner/frontpage1.webp', mobile: '/mobile/Mob1.png' },
-    { desktop: '/banner/2ndpage1.webp', mobile: '/mobile/Mob2.png' },
+    { desktop: '/banner/frontpage1.png', mobile: '/mobile/Mob1.png' },
+    { desktop: '/banner/2ndpage1.png', mobile: '/mobile/Mob2.png' },
   ];
 
  
