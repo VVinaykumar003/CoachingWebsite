@@ -64,7 +64,11 @@ const GeoTestimonials = () => {
   useEffect(() => {
     const initData = async () => {
       try {
-        const data = await fetch('/api/testimonial/get-all').then(res => res.json());
+        const res = await fetch('/api/testimonial/get-all');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
 
         console.log("Fetched testimonials from backend:", data);
         const fetchedTestimonials = Array.isArray(data) ? data : data.testimonials || [];

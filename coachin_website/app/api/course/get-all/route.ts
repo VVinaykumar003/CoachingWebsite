@@ -1,17 +1,19 @@
-import mongoose from "mongoose";
+import { NextResponse } from "next/server";
 import Course from "../../../models/course.model";
-import  {connectDB}  from "../../../lib/mongodb";
+import { connectDB } from "../../../lib/mongodb";
 
-export const GET = async ( request : Request) => {
+export const dynamic = "force-dynamic";
+
+export const GET = async () => {
   try {
     await connectDB();
     const courses = await Course.find();
-    return new Response(JSON.stringify(courses), {
-      status: 200,
-      headers: {"Content-Type": "application/json",},
-    });
-  } catch (error) {
-    console.error(error);
-    return new Response("Internal Server Error", {status: 500});
+    return NextResponse.json(courses, { status: 200 });
+  } catch (error: any) {
+    console.error("Course GET error:", error);
+    return NextResponse.json(
+      { error: error?.message || "Failed to fetch courses" },
+      { status: 500 }
+    );
   }
 };

@@ -10,8 +10,8 @@ export const GET = async (request: NextRequest) => {
     await connectDB();
     const testimonials = await testimonial.find();
     return NextResponse.json(testimonials, { status: 200 });
-  } catch (error) {
-    console.error(error);
-    return NextResponse.json({ message: "Internal Server Error" }, { status: 500 });
+  } catch (error: any) {
+    console.error("Testimonial GET error:", error);
+    return NextResponse.json({ error: error?.message || "Failed to fetch testimonials" }, { status: 500 });
   }
 };

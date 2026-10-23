@@ -32,8 +32,12 @@ const CoursesContent = () => {
 
   const fetchCourses = async () => {
     try {
-      const data = await fetch('/api/course/get-all').then(res => res.json());
-      console.log(data)
+      const res = await fetch('/api/course/get-all');
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
+      console.log(data);
       setCourses(Array.isArray(data) ? data : data.courses || []);
     } catch (error) {
       console.error("Error fetching courses:", error);

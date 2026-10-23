@@ -37,7 +37,11 @@ const ManageCourses = () => {
 
   const fetchCourses = async () => {
     try {
-      const data = await fetch('/api/course/get-all').then(res => res.json());
+      const res = await fetch('/api/course/get-all');
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
+      const data = await res.json();
       setCourses(Array.isArray(data) ? data : data.courses || []);
     } catch (err) {
       console.error("Failed to fetch courses:", err); 

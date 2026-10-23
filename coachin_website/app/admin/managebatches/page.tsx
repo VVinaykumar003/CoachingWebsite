@@ -63,8 +63,11 @@ export default function ManageBatchesPage() {
     setLoading(true);
     try {
       const res = await fetch("/api/admin/batches/get-all");
+      if (!res.ok) {
+        throw new Error(`HTTP error! status: ${res.status}`);
+      }
       const data = await res.json();
-      setBatches(data);
+      setBatches(Array.isArray(data) ? data : data.batches || []);
     } catch (err) {
       console.error("Failed to fetch batches:", err);
     } finally {

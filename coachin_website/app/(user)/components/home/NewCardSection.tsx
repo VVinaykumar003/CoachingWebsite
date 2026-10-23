@@ -18,7 +18,11 @@ const NewCardSection = () => {
   useEffect(() => {
     const fetchCourses = async () => {
       try {
-        const data = await fetch('/api/course/get-all').then(res => res.json());
+        const res = await fetch('/api/course/get-all');
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        const data = await res.json();
         console.log("Fetched courses from backend:", data);
         setCourses(Array.isArray(data) ? data : data.courses || []);
       } catch (err) {

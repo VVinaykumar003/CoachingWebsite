@@ -41,6 +41,9 @@ const BatchEnrollment = () => {
     const fetchBatches = async () => {
       try {
         const response = await fetch('/api/admin/batches/get-all');
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
         const data = await response.json();
         setBatches(Array.isArray(data) ? data : data.batches || []);
       } catch (error) {

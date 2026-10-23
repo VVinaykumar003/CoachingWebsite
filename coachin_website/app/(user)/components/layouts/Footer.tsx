@@ -63,12 +63,18 @@ const Footer = () => {
           {/* Contact Details Column */}
           <nav>
             <h6 className="footer-title opacity-100 text-[#00BCD4] font-extrabold tracking-wide">Reach Us</h6>
-            <div className="text-white/80 text-sm space-y-3 mt-1 leading-relaxed">
-              {/* <p><strong className="text-white">Founder:</strong> Kunal Madaria<br/>(Physics & Chemistry Expert)</p> */}
-              <p>New Rajendra Nagar, behind SBI Bank,<br/>Near RDA Building, Raipur, CG [492001]</p>
-              <p>📞  <a href="tel:+919669238000" className="hover:text-primary transition-colors">9669238000</a></p>
-              <p>✉️ <a href="mailto:kunal@eunoiaeducation.in" className="hover:text-primary transition-colors">kunal@eunoiaeducation.in</a></p>
-            </div>
+            {/* <p className="text-white/80 text-sm leading-relaxed"><strong className="text-white">Founder:</strong> Kunal Madaria<br/>(Physics & Chemistry Expert)</p> */}
+            <p className="text-white/80 text-sm leading-relaxed">
+              New Rajendra Nagar, behind SBI Bank,<br/>Near RDA Building, Raipur, CG [492001]
+            </p>
+            <a href="tel:+919669238000" className="link link-hover text-white/80 hover:text-white transition-colors flex items-center gap-2 whitespace-nowrap text-sm">
+              <span className="shrink-0 text-base">📞</span>
+              <span>9669238000</span>
+            </a>
+            <a href="mailto:kunal@eunoiaeducation.in" className="link link-hover text-white/80 hover:text-white transition-colors flex items-center gap-2 whitespace-nowrap text-sm">
+              <span className="shrink-0 text-base">✉️</span>
+              <span>kunal@eunoiaeducation.in</span>
+            </a>
           </nav>
 
           {/* Newsletter Column */}

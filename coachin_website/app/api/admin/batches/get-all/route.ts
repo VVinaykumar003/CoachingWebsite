@@ -5,8 +5,10 @@ import Batches from '@/app/models/batch.model';
 
 
 
+export const dynamic = "force-dynamic";
+
 // GET: Fetch all batches
-export async function GET( request: NextRequest) {
+export async function GET(request: NextRequest) {
   try {
     await connectDB();
     
@@ -14,8 +16,8 @@ export async function GET( request: NextRequest) {
     const batches = await Batches.find().sort({ createdAt: -1 });
     
     return NextResponse.json(batches, { status: 200 });
-  } catch (error: unknown ) {
+  } catch (error: any) {
     console.error('Error fetching batches:', error);
-    return NextResponse.json({ error: 'Failed to fetch batches' }, { status: 500 });
+    return NextResponse.json({ error: error?.message || 'Failed to fetch batches' }, { status: 500 });
   }
 }
