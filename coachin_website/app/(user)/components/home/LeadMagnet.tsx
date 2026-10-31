@@ -34,7 +34,7 @@ const LeadMagnet = () => {
         
         <div className="relative z-10 text-left md:w-1/2">
           <div className="badge badge-warning font-bold mb-4 shadow-sm text-xs">Free Resource</div>
-          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Master JEE & NEET Physics</h2>
+          <h2 className="text-3xl md:text-4xl font-extrabold text-white mb-4">Master Physics and Chemistry like never before</h2>
           <p className="text-white/90 text-lg mb-0 leading-relaxed">
             Not ready to enroll yet? Get our exclusive <strong>Formula Sheet & Demo Lecture PDF</strong> straight to your WhatsApp.
           </p>

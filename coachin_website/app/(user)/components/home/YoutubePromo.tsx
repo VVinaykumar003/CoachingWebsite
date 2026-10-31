@@ -13,7 +13,7 @@ const YouTubePromo = () => {
       </div>
 
       {/* Subscriber Milestone & Stats Component */}
-      <div className="flex justify-center mb-12">
+      {/* <div className="flex justify-center mb-12">
         <div className="stats shadow stats-vertical lg:stats-horizontal w-full max-w-3xl">
           <div className="stat place-items-center border-r-2">
             <div className="stat-title text-base-100/70">Subscribers</div>
@@ -33,7 +33,7 @@ const YouTubePromo = () => {
             <div className="stat-desc text-base-100">Fresh projects & tips</div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Video Wall (Embedded YouTube Videos) */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-10">
